@@ -59,7 +59,7 @@ export const Navigation: React.FC = () => {
         </div>
 
         {/* Center: Desktop Nav Tabs (Only in Studio mode) */}
-        {!isLanding ? (
+        {!isLanding && (
           <nav className="hidden md:flex items-center gap-1">
             {navItems.map((item) => {
               const isActive = currentTab === item.id;
@@ -78,14 +78,6 @@ export const Navigation: React.FC = () => {
               );
             })}
           </nav>
-        ) : (
-          <div className="hidden sm:flex items-center gap-4 text-xs text-[#737373] font-medium">
-            <span>1,324 Exercises</span>
-            <span>•</span>
-            <span>100% Offline & Local-First</span>
-            <span>•</span>
-            <span>Open Source</span>
-          </div>
         )}
 
         {/* Right: Language Toggle & Context Action Area */}
@@ -100,45 +92,39 @@ export const Navigation: React.FC = () => {
             <span>{profile.language === 'en' ? '🇬🇧 EN' : '🇮🇩 ID'}</span>
           </button>
 
-          {isLanding ? (
-            <button
-              onClick={() => setCurrentTab('home')}
-              className="btn-primary text-xs py-1.5 px-3.5 font-medium"
-            >
-              <Zap className="w-4 h-4 fill-current" />
-              <span>{t.landing_cta_launch}</span>
-            </button>
-          ) : activePlan ? (
-            <button
-              onClick={() => setCurrentTab('active_workout')}
-              className={'px-3 py-1.5 rounded-[18px] text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer ' +
-                (currentTab === 'active_workout'
-                  ? 'bg-[#0a0a0a] text-[#fafafa]'
-                  : 'bg-[#fafafa] text-[#0a0a0a] border border-[#e5e5e5] hover:bg-[#f5f5f5]')}
-            >
-              <div className="w-2 h-2 rounded-full bg-[#0a0a0a] animate-ping" />
-              <PlayCircle className="w-5 h-5" />
-              <span>{t.nav_resume_session}</span>
-            </button>
-          ) : (
-            <button
-              onClick={() => setCurrentTab('wizard')}
-              className="btn-primary text-xs py-1.5 px-3.5 font-medium"
-            >
-              <Zap className="w-5 h-5 fill-current" />
-              <span>{t.nav_quick_start}</span>
-            </button>
-          )}
-
           {!isLanding && (
-            <div
-              onClick={() => setCurrentTab('equipment')}
-              className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-[18px] bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[11px] font-medium text-[#737373] hover:text-[#0a0a0a] cursor-pointer transition-colors border border-[#e5e5e5]"
-              title={t.gear_title}
-            >
-              <Wrench className="w-4 h-4" />
-              <span>{enabledGearCount} {t.nav_tools}</span>
-            </div>
+            <>
+              {activePlan ? (
+                <button
+                  onClick={() => setCurrentTab('active_workout')}
+                  className={'px-3 py-1.5 rounded-[18px] text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer ' +
+                    (currentTab === 'active_workout'
+                      ? 'bg-[#0a0a0a] text-[#fafafa]'
+                      : 'bg-[#fafafa] text-[#0a0a0a] border border-[#e5e5e5] hover:bg-[#f5f5f5]')}
+                >
+                  <div className="w-2 h-2 rounded-full bg-[#0a0a0a] animate-ping" />
+                  <PlayCircle className="w-5 h-5" />
+                  <span>{t.nav_resume_session}</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => setCurrentTab('wizard')}
+                  className="btn-primary text-xs py-1.5 px-3.5 font-medium"
+                >
+                  <Zap className="w-5 h-5 fill-current" />
+                  <span>{t.nav_quick_start}</span>
+                </button>
+              )}
+
+              <div
+                onClick={() => setCurrentTab('equipment')}
+                className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-[18px] bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[11px] font-medium text-[#737373] hover:text-[#0a0a0a] cursor-pointer transition-colors border border-[#e5e5e5]"
+                title={t.gear_title}
+              >
+                <Wrench className="w-4 h-4" />
+                <span>{enabledGearCount} {t.nav_tools}</span>
+              </div>
+            </>
           )}
         </div>
       </div>
