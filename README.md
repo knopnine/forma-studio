@@ -67,6 +67,40 @@ npm run preview
 
 ---
 
+## General User Guide (Panduan Pengguna)
+
+### 1. Equipment & Household Setup (Peralatan)
+- Navigate to the **Gear (Peralatan)** tab.
+- Toggle the standard equipment you own (*Bodyweight, Dumbbells, Pull-Up Bar, Resistance Bands, Stability Ball, Benches*).
+- **Add Improvised Household Tools**: Click **+ Add Custom Tool** to register everyday items (*Sturdy Dining Chair* for dips, *Loaded Backpack* for weighted squats, *Towel* for floor sliders).
+- *The routine generator strictly uses only enabled equipment.*
+
+### 2. Generating Daily Workouts (Rencana Harian)
+- Click **Quick Start** or **Daily Plan**.
+- Choose your **Energy Level**:
+  - **Full Tank (High)**: Full volume, progressive load.
+  - **Moderate (Standard)**: Balanced volume and working sets.
+  - **Low (Recovery)**: Reduced sets, joint-friendly tempo and mobility.
+- Select your target **Duration** (`15`, `30`, `45`, or `60` mins) and **Muscle Focus** (*Full Body, Push, Pull, Legs, Core, Cardio*).
+- Click **Generate Workout Plan**. Inspect movements or **Reroll** as desired, then click **Start Active Workout**.
+
+### 3. Active Session Tracking & Rest Timer (Pelacak Sesi)
+- Record your completed reps and weight for each set.
+- Check off sets with the **Done** checkmark to trigger sound cues and start the **Floating Rest Timer**.
+- **In-Session Movement Swap**: Click the circular swap icon on any exercise card to replace a movement on the fly with a compatible alternative.
+- Use the **Rest Timer** controls to pause, add +30s, or skip. Acoustic 3-2-1 cues prepare you for the next set.
+- Click **Finish Workout** when done to save your history and celebrate with milestone fanfare!
+
+### 4. Performance Analytics & Local Backups (Statistik & Cadangan)
+- View total tonnage lifted, total reps, and your **28-Day Consistency Heatmap** in the **Analytics** tab.
+- Automatically records Personal Records (PRs) for highest weight and reps.
+- Use **Export JSON Backup** to download your private offline data, and **Import JSON Backup** to restore anytime.
+
+### 5. App-Wide Language Switcher (Pilihan Bahasa)
+- Click the **🇬🇧 EN / 🇮🇩 ID** button in the top navigation bar at any time to switch the entire application interface and exercise instructions.
+
+---
+
 ## Converting to Android Mobile App (Capacitor)
 
 1. **Build Web Production Assets**:
