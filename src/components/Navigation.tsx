@@ -34,14 +34,16 @@ export const Navigation: React.FC = () => {
     updateProfile({ language: nextLang });
   };
 
+  const isLanding = currentTab === 'landing';
+
   return (
     <header className="sticky top-0 z-40 bg-[#ffffff]/90 backdrop-blur-md border-b border-[#e5e5e5]">
       <div className="max-w-[1280px] mx-auto px-4 md:px-8 h-14 flex items-center justify-between">
         {/* Left: Minimalist Brand Mark */}
         <div
-          onClick={() => setCurrentTab(currentTab === 'landing' ? 'home' : 'landing')}
+          onClick={() => setCurrentTab(isLanding ? 'home' : 'landing')}
           className="flex items-center gap-2.5 cursor-pointer select-none group"
-          title={currentTab === 'landing' ? 'Open Workout Studio' : 'Back to Landing Page'}
+          title={isLanding ? 'Open Workout Studio' : 'Back to Showcase Landing Page'}
         >
           <div className="w-7 h-7 rounded-[8px] bg-[#0a0a0a] text-[#fafafa] flex items-center justify-center transition-transform group-hover:scale-105 shadow-xs">
             <Dumbbell className="w-5 h-5" />
@@ -56,25 +58,35 @@ export const Navigation: React.FC = () => {
           </div>
         </div>
 
-        {/* Center: Desktop Nav Tabs (Clean, Typographic, Minimalist) */}
-        <nav className="hidden md:flex items-center gap-1">
-          {navItems.map((item) => {
-            const isActive = currentTab === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => setCurrentTab(item.id)}
-                className={'px-3 py-1.5 rounded-[18px] text-[13px] font-medium transition-all flex items-center gap-1.5 cursor-pointer ' +
-                  (isActive
-                    ? 'bg-[#0a0a0a] text-[#fafafa]'
-                    : 'text-[#737373] hover:text-[#0a0a0a] hover:bg-[#f5f5f5]')}
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </button>
-            );
-          })}
-        </nav>
+        {/* Center: Desktop Nav Tabs (Only in Studio mode) */}
+        {!isLanding ? (
+          <nav className="hidden md:flex items-center gap-1">
+            {navItems.map((item) => {
+              const isActive = currentTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => setCurrentTab(item.id)}
+                  className={'px-3 py-1.5 rounded-[18px] text-[13px] font-medium transition-all flex items-center gap-1.5 cursor-pointer ' +
+                    (isActive
+                      ? 'bg-[#0a0a0a] text-[#fafafa]'
+                      : 'text-[#737373] hover:text-[#0a0a0a] hover:bg-[#f5f5f5]')}
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+          </nav>
+        ) : (
+          <div className="hidden sm:flex items-center gap-4 text-xs text-[#737373] font-medium">
+            <span>1,324 Exercises</span>
+            <span>•</span>
+            <span>100% Offline & Local-First</span>
+            <span>•</span>
+            <span>Open Source</span>
+          </div>
+        )}
 
         {/* Right: Language Toggle & Context Action Area */}
         <div className="flex items-center gap-2">
@@ -88,7 +100,15 @@ export const Navigation: React.FC = () => {
             <span>{profile.language === 'en' ? '🇬🇧 EN' : '🇮🇩 ID'}</span>
           </button>
 
-          {activePlan ? (
+          {isLanding ? (
+            <button
+              onClick={() => setCurrentTab('home')}
+              className="btn-primary text-xs py-1.5 px-3.5 font-medium"
+            >
+              <Zap className="w-4 h-4 fill-current" />
+              <span>{t.landing_cta_launch}</span>
+            </button>
+          ) : activePlan ? (
             <button
               onClick={() => setCurrentTab('active_workout')}
               className={'px-3 py-1.5 rounded-[18px] text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer ' +
@@ -110,38 +130,42 @@ export const Navigation: React.FC = () => {
             </button>
           )}
 
-          <div
-            onClick={() => setCurrentTab('equipment')}
-            className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-[18px] bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[11px] font-medium text-[#737373] hover:text-[#0a0a0a] cursor-pointer transition-colors border border-[#e5e5e5]"
-            title={t.gear_title}
-          >
-            <Wrench className="w-4 h-4" />
-            <span>{enabledGearCount} {t.nav_tools}</span>
-          </div>
+          {!isLanding && (
+            <div
+              onClick={() => setCurrentTab('equipment')}
+              className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-[18px] bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[11px] font-medium text-[#737373] hover:text-[#0a0a0a] cursor-pointer transition-colors border border-[#e5e5e5]"
+              title={t.gear_title}
+            >
+              <Wrench className="w-4 h-4" />
+              <span>{enabledGearCount} {t.nav_tools}</span>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Mobile Bottom Navigation Dock */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#ffffff]/95 backdrop-blur-md border-t border-[#e5e5e5] px-2 py-1.5 flex items-center justify-around shadow-lg">
-        {navItems.map((item) => {
-          const isActive = currentTab === item.id;
-          return (
-            <button
-              key={item.id}
-              onClick={() => setCurrentTab(item.id)}
-              className={'flex flex-col items-center justify-center py-1 px-2 rounded-[18px] text-[10px] transition-all cursor-pointer ' +
-                (isActive
-                  ? 'bg-[#0a0a0a] text-[#fafafa] font-semibold'
-                  : 'text-[#737373] hover:text-[#0a0a0a]')}
-            >
-              <div className="w-4 h-4 flex items-center justify-center">
-                {item.icon}
-              </div>
-              <span className="mt-0.5">{item.label}</span>
-            </button>
-          );
-        })}
-      </nav>
+      {/* Mobile Bottom Navigation Dock (Only rendered in Studio mode) */}
+      {!isLanding && (
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#ffffff]/95 backdrop-blur-md border-t border-[#e5e5e5] px-2 py-1.5 flex items-center justify-around shadow-lg">
+          {navItems.map((item) => {
+            const isActive = currentTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setCurrentTab(item.id)}
+                className={'flex flex-col items-center justify-center py-1 px-2 rounded-[18px] text-[10px] transition-all cursor-pointer ' +
+                  (isActive
+                    ? 'bg-[#0a0a0a] text-[#fafafa] font-semibold'
+                    : 'text-[#737373] hover:text-[#0a0a0a]')}
+              >
+                <div className="w-4 h-4 flex items-center justify-center">
+                  {item.icon}
+                </div>
+                <span className="mt-0.5">{item.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+      )}
     </header>
   );
 };

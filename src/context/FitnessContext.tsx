@@ -69,12 +69,58 @@ const DEFAULT_PROFILE: UserProfile = {
   equipment: DEFAULT_EQUIPMENT_CONFIG,
 };
 
+function getInitialTab(): AppTab {
+  if (typeof window === 'undefined') return 'landing';
+
+  const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+  if (hash === 'app' || hash === 'home') return 'home';
+  if (hash.startsWith('app/wizard') || hash === 'wizard') return 'wizard';
+  if (hash.startsWith('app/splits') || hash === 'splits') return 'splits';
+  if (hash.startsWith('app/library') || hash === 'library') return 'library';
+  if (hash.startsWith('app/equipment') || hash === 'equipment') return 'equipment';
+  if (hash.startsWith('app/analytics') || hash === 'analytics') return 'analytics';
+  if (hash === 'landing' || hash === '') {
+    // If running in Capacitor Android Native App or Standalone PWA, start directly in Studio
+    const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
+    const isStandalone = window.matchMedia?.('(display-mode: standalone)')?.matches;
+    if (isNative || isStandalone) {
+      return 'home';
+    }
+    return 'landing';
+  }
+
+  return 'landing';
+}
+
 export const FitnessProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [profile, setProfile] = useState<UserProfile>(DEFAULT_PROFILE);
   const [history, setHistory] = useState<CompletedWorkoutLog[]>([]);
   const [personalRecords, setPersonalRecords] = useState<PersonalRecord[]>([]);
-  const [currentTab, setCurrentTab] = useState<AppTab>('home');
+  const [currentTab, setCurrentTabState] = useState<AppTab>(getInitialTab);
   const [selectedExerciseForDetail, setSelectedExerciseForDetail] = useState<string | null>(null);
+
+  const setCurrentTab = (tab: AppTab) => {
+    setCurrentTabState(tab);
+    if (typeof window !== 'undefined') {
+      const targetHash = tab === 'landing' ? '#/' : (tab === 'home' ? '#/app' : `#/app/${tab}`);
+      if (window.location.hash !== targetHash) {
+        try {
+          window.history.replaceState(null, '', targetHash);
+        } catch {
+          window.location.hash = targetHash;
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const newTab = getInitialTab();
+      setCurrentTabState(newTab);
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   // Active workout state
   const [activePlan, setActivePlan] = useState<WorkoutPlan | null>(null);
