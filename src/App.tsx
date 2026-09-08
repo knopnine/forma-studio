@@ -1,4 +1,5 @@
 import React from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { FitnessProvider, useFitness } from './context/FitnessContext';
 import { Navigation } from './components/Navigation';
 import { HomeDashboard } from './components/HomeDashboard';
@@ -40,6 +41,7 @@ export const App: React.FC = () => {
   return (
     <FitnessProvider>
       <AppContent />
+      <Analytics />
     </FitnessProvider>
   );
 };
