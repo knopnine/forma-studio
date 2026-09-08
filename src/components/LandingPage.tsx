@@ -243,25 +243,26 @@ export const LandingPage: React.FC = () => {
       )}
 
       {/* Open-Source & Privacy Guarantee Banner */}
-      <section className="clinical-card p-6 md:p-8 bg-[#0a0a0a] text-[#fafafa] space-y-4 rounded-[24px]">
+      <section className="clinical-card p-6 md:p-8 space-y-4 rounded-[24px]">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="space-y-1.5 max-w-xl">
-            <span className="badge-solid bg-[#262626] text-[#fafafa] text-[10px] uppercase">
+            <span className="badge-solid bg-[#0a0a0a] text-[#fafafa] text-[10px] uppercase">
               Free & Open Source (MIT)
             </span>
-            <h3 className="text-xl md:text-2xl font-bold tracking-tight text-[#fafafa]">
+            <h3 className="text-xl md:text-2xl font-bold tracking-tight text-[#0a0a0a]">
               {t.landing_foss_title}
             </h3>
-            <p className="text-xs md:text-sm text-[#a3a3a3] leading-relaxed">
+            <p className="text-xs md:text-sm text-[#6f6f6f] leading-relaxed">
               {t.landing_foss_desc}
             </p>
           </div>
 
           <button
             onClick={() => setCurrentTab('home')}
-            className="px-5 py-3 rounded-[18px] bg-[#fafafa] text-[#0a0a0a] font-semibold text-xs hover:bg-[#ffffff] hover:scale-105 transition-all cursor-pointer shrink-0"
+            className="btn-primary text-xs py-2.5 px-5 shadow-sm hover:scale-[1.02] transition-transform"
           >
-            {t.landing_cta_launch}
+            <span>{t.landing_cta_launch}</span>
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </section>

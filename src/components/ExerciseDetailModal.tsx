@@ -33,22 +33,41 @@ export const ExerciseDetailModal: React.FC = () => {
   const equipmentTip = getEquipmentSetupTip(exercise, profile.equipment);
   const requiredGearList = getExerciseRequiredEquipment(exercise);
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedExerciseForDetail(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [setSelectedExerciseForDetail]);
+
   return typeof document !== 'undefined' ? createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0a0a0a]/50 backdrop-blur-md animate-fadeIn">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="exercise-modal-title"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) setSelectedExerciseForDetail(null);
+      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0a0a0a]/50 backdrop-blur-md animate-fadeIn"
+    >
       <div className="bg-[#ffffff] border border-[#e5e5e5] rounded-[24px] max-w-xl w-full max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col relative">
         {/* Modal Header */}
         <div className="sticky top-0 bg-[#ffffff]/95 backdrop-blur-md border-b border-[#e5e5e5] px-6 py-4 flex items-center justify-between z-10">
           <div className="pr-4">
-            <span className="text-xs font-semibold text-[#737373] uppercase tracking-wider">
+            <span className="text-xs font-semibold text-[#6f6f6f] uppercase tracking-wider">
               {exercise.category} • {exercise.difficulty}
             </span>
-            <h3 className="text-lg font-semibold text-[#0a0a0a] capitalize leading-snug">
+            <h3 id="exercise-modal-title" className="text-lg font-semibold text-[#0a0a0a] capitalize leading-snug">
               {exercise.name}
             </h3>
           </div>
           <button
             onClick={() => setSelectedExerciseForDetail(null)}
-            className="p-2 rounded-[18px] bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[#0a0a0a] transition-colors cursor-pointer"
+            aria-label="Close exercise details"
+            className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-[18px] bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[#0a0a0a] transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0a0a0a]"
           >
             <X className="w-5 h-5" />
           </button>

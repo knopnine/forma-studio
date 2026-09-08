@@ -133,35 +133,59 @@ export const ExerciseLibrary: React.FC = () => {
         )}
       </div>
 
-      {/* Exercise Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-        {filteredExercises.map((ex) => (
-          <div
-            key={ex.id}
-            onClick={() => setSelectedExerciseForDetail(ex.id)}
-            className="clinical-card p-4 flex flex-col justify-between space-y-3 hover:border-[#0a0a0a] transition-all cursor-pointer group"
-          >
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="badge-soft text-[10px] capitalize">
-                  {ex.category}
-                </span>
-                <span className="text-[11px] text-[#737373] capitalize">
-                  {ex.difficulty}
-                </span>
-              </div>
-              <h4 className="font-semibold text-sm text-[#0a0a0a] capitalize group-hover:text-[#171717] leading-snug">
-                {ex.name}
-              </h4>
-            </div>
-
-            <div className="flex items-center justify-between pt-2 border-t border-[#f5f5f5] text-xs text-[#737373]">
-              <span className="capitalize">{ex.target}</span>
-              <span className="capitalize badge-outline text-[10px]">{ex.equipmentCategory.replace(/_/g, ' ')}</span>
-            </div>
+      {/* Exercise Grid or Empty State */}
+      {filteredExercises.length === 0 ? (
+        <div className="clinical-card text-center py-12 px-6 space-y-4 max-w-md mx-auto my-6">
+          <div className="w-12 h-12 rounded-[18px] bg-[#f5f5f5] text-[#6f6f6f] flex items-center justify-center mx-auto">
+            <Search className="w-6 h-6" />
           </div>
-        ))}
-      </div>
+          <div className="space-y-1">
+            <h3 className="text-base font-semibold text-[#0a0a0a]">No movements found</h3>
+            <p className="text-xs text-[#6f6f6f]">
+              No exercises match your search query or active equipment filters.
+            </p>
+          </div>
+          <button
+            onClick={() => {
+              setSearchQuery('');
+              setSelectedCategory('all');
+              setSelectedEquipment('all');
+            }}
+            className="btn-outline text-xs py-2 px-4 hover:bg-[#0a0a0a] hover:text-[#fafafa] transition-all"
+          >
+            Reset all filters
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          {filteredExercises.map((ex) => (
+            <div
+              key={ex.id}
+              onClick={() => setSelectedExerciseForDetail(ex.id)}
+              className="clinical-card p-4 flex flex-col justify-between space-y-3 hover:border-[#0a0a0a] transition-all cursor-pointer group"
+            >
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="badge-soft text-[10px] capitalize">
+                    {ex.category}
+                  </span>
+                  <span className="text-[11px] text-[#6f6f6f] capitalize">
+                    {ex.difficulty}
+                  </span>
+                </div>
+                <h4 className="font-semibold text-sm text-[#0a0a0a] capitalize group-hover:text-[#171717] leading-snug">
+                  {ex.name}
+                </h4>
+              </div>
+
+              <div className="flex items-center justify-between pt-2 border-t border-[#f5f5f5] text-xs text-[#6f6f6f]">
+                <span className="capitalize">{ex.target}</span>
+                <span className="capitalize badge-outline text-[10px]">{ex.equipmentCategory.replace(/_/g, ' ')}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -253,10 +253,11 @@ export const ActiveWorkoutView: React.FC = () => {
                     <div className="col-span-2 flex justify-end">
                       <button
                         onClick={() => toggleSetComplete(exIdx, setIdx)}
-                        className={'w-8 h-8 min-w-[32px] min-h-[32px] rounded-[10px] flex items-center justify-center transition-all cursor-pointer ' +
+                        aria-label={isDone ? `Set ${set.setNumber} completed. Click to undo` : `Complete set ${set.setNumber}`}
+                        className={'w-9 h-9 min-w-[36px] min-h-[36px] rounded-[10px] flex items-center justify-center transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0a0a0a] ' +
                           (isDone
                             ? 'bg-[#0a0a0a] text-[#fafafa] shadow-xs'
-                            : 'bg-[#ffffff] text-[#737373] border border-[#e5e5e5] hover:border-[#0a0a0a]')}
+                            : 'bg-[#ffffff] text-[#6f6f6f] border border-[#e5e5e5] hover:border-[#0a0a0a]')}
                       >
                         <Check className="w-4 h-4" />
                       </button>
