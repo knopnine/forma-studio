@@ -24,7 +24,6 @@ export const Navigation: React.FC = () => {
     { id: 'wizard', label: t.nav_daily_plan, icon: <Calendar className="w-4 h-4" /> },
     { id: 'splits', label: t.nav_splits, icon: <Layers className="w-4 h-4" /> },
     { id: 'library', label: t.nav_library, icon: <BookOpen className="w-4 h-4" /> },
-    { id: 'equipment', label: t.nav_gear, icon: <Wrench className="w-4 h-4" /> },
     { id: 'analytics', label: t.nav_analytics, icon: <BarChart3 className="w-4 h-4" /> },
   ];
 

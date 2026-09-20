@@ -317,3 +317,10 @@ export const ChevronUp: React.FC<IconProps> = ({ size = 20, className = 'w-5 h-5
     <polyline points="18 15 12 9 6 15" />
   </svg>
 );
+
+export const ArrowLeft: React.FC<IconProps> = ({ size = 20, className = 'w-5 h-5 shrink-0', ...props }) => (
+  <svg width={size} height={size} {...baseSvgProps} className={className} {...props}>
+    <line x1="19" y1="12" x2="5" y2="12" />
+    <polyline points="12 19 5 12 12 5" />
+  </svg>
+);

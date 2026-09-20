@@ -139,6 +139,23 @@ export interface Translations {
   swap_recommended_title: string;
   swap_all_compatible_title: string;
   btn_replace: string;
+  session_elapsed: string;
+  exercise_stepper_counter: string;
+  of_stepper: string;
+  next_exercise: string;
+  prev_exercise: string;
+  all_sets_completed: string;
+  proceed_next_exercise: string;
+  summary_modal_title: string;
+  summary_modal_subtitle: string;
+  summary_total_duration: string;
+  summary_total_volume: string;
+  summary_total_reps: string;
+  summary_sets_completed: string;
+  summary_prs_unlocked: string;
+  summary_view_analytics: string;
+  summary_close: string;
+  gear_manage_custom: string;
 
   detail_primary_target: string;
   detail_required_gear: string;
@@ -308,6 +325,23 @@ export const I18N_DICTIONARY: Record<Language, Translations> = {
     swap_recommended_title: 'Recommended Alternatives',
     swap_all_compatible_title: 'Search & Pick Any Compatible Movement',
     btn_replace: 'Replace Movement',
+    session_elapsed: 'Session Elapsed',
+    exercise_stepper_counter: 'Movement',
+    of_stepper: 'of',
+    next_exercise: 'Next Movement',
+    prev_exercise: 'Previous',
+    all_sets_completed: 'All sets completed!',
+    proceed_next_exercise: 'Continue to Next Movement',
+    summary_modal_title: 'Workout Session Complete',
+    summary_modal_subtitle: 'Solid effort. Here is your completed training blueprint.',
+    summary_total_duration: 'Total Session Duration',
+    summary_total_volume: 'Total Tonnage Lifted',
+    summary_total_reps: 'Total Repetitions',
+    summary_sets_completed: 'Sets Completed',
+    summary_prs_unlocked: 'New Personal Records!',
+    summary_view_analytics: 'View in Analytics',
+    summary_close: 'Done / Return to Home',
+    gear_manage_custom: 'Manage Custom Tools & Dumbbell Weights',
 
     detail_primary_target: 'Primary Target',
     detail_required_gear: 'Required Equipment',
@@ -476,6 +510,23 @@ export const I18N_DICTIONARY: Record<Language, Translations> = {
     swap_recommended_title: 'Pilihan Alternatif yang Dianjurkan',
     swap_all_compatible_title: 'Cari & Pilih Gerakan yang Sesuai',
     btn_replace: 'Ganti Gerakan',
+    session_elapsed: 'Waktu Sesi Berjalan',
+    exercise_stepper_counter: 'Gerakan',
+    of_stepper: 'dari',
+    next_exercise: 'Gerakan Berikutnya',
+    prev_exercise: 'Sebelumnya',
+    all_sets_completed: 'Semua set selesai!',
+    proceed_next_exercise: 'Lanjut ke Gerakan Berikutnya',
+    summary_modal_title: 'Sesi Latihan Selesai',
+    summary_modal_subtitle: 'Kerja keras luar biasa. Berikut ringkasan latihanmu.',
+    summary_total_duration: 'Total Durasi Sesi',
+    summary_total_volume: 'Total Beban Terangkat',
+    summary_total_reps: 'Total Repetisi',
+    summary_sets_completed: 'Set Selesai',
+    summary_prs_unlocked: 'Rekor Pribadi Baru!',
+    summary_view_analytics: 'Buka di Statistik',
+    summary_close: 'Selesai / Kembali ke Beranda',
+    gear_manage_custom: 'Atur Alat Kustom & Beban Dumbbell',
 
     detail_primary_target: 'Otot Utama',
     detail_required_gear: 'Alat yang Dibutuhkan',

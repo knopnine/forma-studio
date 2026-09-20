@@ -400,7 +400,6 @@ const ACTIVE_SESSION_STORAGE_KEY = 'forma_active_workout_session_v1';
     setActivePlan(null);
     setWorkoutStartTime(null);
     setRestTimer(null);
-    setCurrentTab('analytics');
 
     return newLog;
   };

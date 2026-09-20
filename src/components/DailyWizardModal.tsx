@@ -22,7 +22,7 @@ import type {
 import { getTranslation } from '../core/i18n';
 
 export const DailyWizardModal: React.FC = () => {
-  const { profile, updateEquipment, startWorkout, setSelectedExerciseForDetail } = useFitness();
+  const { profile, updateEquipment, startWorkout, setSelectedExerciseForDetail, setCurrentTab } = useFitness();
   const t = getTranslation(profile.language);
 
   const [energyLevel, setEnergyLevel] = useState<EnergyLevel>('moderate');
@@ -472,8 +472,8 @@ export const DailyWizardModal: React.FC = () => {
               )}
             </div>
 
-            {/* Remember as Default Gear Setting Checkbox */}
-            <div className="pt-2">
+            {/* Remember as Default Gear Setting Checkbox & Deep Config Link */}
+            <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
               <label className="inline-flex items-center gap-2 text-xs text-[#6f6f6f] cursor-pointer select-none">
                 <input
                   type="checkbox"
@@ -483,6 +483,15 @@ export const DailyWizardModal: React.FC = () => {
                 />
                 <span className="font-medium text-[#0a0a0a]">{t.gear_save_default}</span>
               </label>
+
+              <button
+                type="button"
+                onClick={() => setCurrentTab('equipment')}
+                className="text-xs text-[#6f6f6f] hover:text-[#0a0a0a] hover:underline cursor-pointer flex items-center gap-1"
+              >
+                <span>{t.gear_manage_custom}</span>
+                <span>→</span>
+              </button>
             </div>
           </div>
 
