@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
-  Wrench,
-  Dumbbell,
   Plus,
   Trash2,
   Check,
@@ -28,7 +26,7 @@ export const EquipmentManager: React.FC = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [newToolName, setNewToolName] = useState('');
   const [newToolDesc, setNewToolDesc] = useState('');
-  const [newToolCategory, setNewToolCategory] = useState<ImprovisedTool['category']>('custom');
+  const newToolCategory: ImprovisedTool['category'] = 'custom';
   const [newToolWeight, setNewToolWeight] = useState<number>(10);
 
   const sections: EquipmentSection[] = [
@@ -97,13 +95,13 @@ export const EquipmentManager: React.FC = () => {
     <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
       <div className="flex items-center justify-between border-b border-[#e5e5e5] pb-4">
         <div>
-          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373]">
+          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f]">
             Gear & Household Setup
           </span>
           <h2 className="text-2xl font-semibold tracking-tight text-[#0a0a0a] mt-0.5">
             Available Equipment
           </h2>
-          <p className="text-xs text-[#737373] mt-1">
+          <p className="text-xs text-[#6f6f6f] mt-1">
             Toggle what you currently have at home. The daily plan algorithm strictly uses only available gear.
           </p>
         </div>
@@ -120,10 +118,10 @@ export const EquipmentManager: React.FC = () => {
       {sections.map((section, sIdx) => (
         <div key={sIdx} className="space-y-3">
           <div>
-            <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373] block">
+            <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f] block">
               {section.title}
             </span>
-            <p className="text-xs text-[#737373] mt-0.5">{section.description}</p>
+            <p className="text-xs text-[#6f6f6f] mt-0.5">{section.description}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -145,7 +143,7 @@ export const EquipmentManager: React.FC = () => {
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-[#737373]">{item.desc}</p>
+                    <p className="text-xs text-[#6f6f6f]">{item.desc}</p>
                   </div>
 
                   <div
@@ -165,10 +163,10 @@ export const EquipmentManager: React.FC = () => {
       <div className="space-y-4 pt-4 border-t border-[#e5e5e5]">
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
-            <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373] block">
+            <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f] block">
               Improvised Household Tools
             </span>
-            <p className="text-xs text-[#737373]">
+            <p className="text-xs text-[#6f6f6f]">
               Everyday objects mapped to gym movements (chairs for dips, backpacks for weights, towels for sliders).
             </p>
           </div>
@@ -190,10 +188,10 @@ export const EquipmentManager: React.FC = () => {
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-[#737373]">{tool.description}</p>
+                <p className="text-xs text-[#6f6f6f]">{tool.description}</p>
                 <div className="flex items-center gap-1.5 pt-1">
-                  <Sparkles className="w-4 h-4 text-[#737373]" />
-                  <span className="text-[11px] text-[#737373]">
+                  <Sparkles className="w-4 h-4 text-[#6f6f6f]" />
+                  <span className="text-[11px] text-[#6f6f6f]">
                     Maps to: {tool.mapsToStandard.join(', ').replace(/_/g, ' ')}
                   </span>
                 </div>
@@ -210,7 +208,7 @@ export const EquipmentManager: React.FC = () => {
 
                 <button
                   onClick={() => deleteImprovisedTool(tool.id)}
-                  className="p-1.5 rounded-[18px] text-[#737373] hover:text-[#e7000b] transition-colors cursor-pointer"
+                  className="p-1.5 rounded-[18px] text-[#6f6f6f] hover:text-[#e7000b] transition-colors cursor-pointer"
                   title="Remove Tool"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -228,7 +226,7 @@ export const EquipmentManager: React.FC = () => {
             <h3 className="text-lg font-semibold text-[#0a0a0a]">Add Improvised Home Tool</h3>
             <form onSubmit={handleCreateTool} className="space-y-3">
               <div>
-                <label className="text-xs font-semibold text-[#737373] block mb-1">
+                <label className="text-xs font-semibold text-[#6f6f6f] block mb-1">
                   Tool Name
                 </label>
                 <input
@@ -242,7 +240,7 @@ export const EquipmentManager: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#737373] block mb-1">
+                <label className="text-xs font-semibold text-[#6f6f6f] block mb-1">
                   Description / Use Case
                 </label>
                 <input
@@ -255,7 +253,7 @@ export const EquipmentManager: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#737373] block mb-1">
+                <label className="text-xs font-semibold text-[#6f6f6f] block mb-1">
                   Estimated Load / Weight (kg)
                 </label>
                 <input

@@ -29,7 +29,7 @@ export const ExerciseVisualizer: React.FC<Props> = ({
         <span className="text-xs font-bold uppercase tracking-wider text-[#0a0a0a] text-center px-2">
           {exercise.name}
         </span>
-        <span className="text-[11px] text-[#737373] mt-0.5 capitalize">
+        <span className="text-[11px] text-[#6f6f6f] mt-0.5 capitalize">
           {exercise.category} • {exercise.equipment}
         </span>
       </div>

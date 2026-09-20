@@ -20,6 +20,7 @@ export interface RestTimerState {
   remainingSeconds: number;
   isRunning: boolean;
   exerciseName?: string;
+  targetEndTime?: number | null;
 }
 
 interface FitnessContextType {
@@ -129,6 +130,8 @@ export const FitnessProvider: React.FC<{ children: React.ReactNode }> = ({ child
   // Floating Rest timer state
   const [restTimer, setRestTimer] = useState<RestTimerState | null>(null);
 
+const ACTIVE_SESSION_STORAGE_KEY = 'forma_active_workout_session_v1';
+
   // Load from Storage on mount
   useEffect(() => {
     async function initData() {
@@ -139,34 +142,71 @@ export const FitnessProvider: React.FC<{ children: React.ReactNode }> = ({ child
       setProfile(storedProfile);
       setHistory(storedHistory);
       setPersonalRecords(storedPRs);
+
+      // Restore in-progress active workout session if present
+      try {
+        const savedSession = localStorage.getItem(ACTIVE_SESSION_STORAGE_KEY);
+        if (savedSession) {
+          const parsed = JSON.parse(savedSession);
+          if (parsed?.activePlan && parsed?.workoutStartTime) {
+            setActivePlan(parsed.activePlan);
+            setWorkoutStartTime(parsed.workoutStartTime);
+          }
+        }
+      } catch (e) {
+        console.warn('Failed to restore active workout session', e);
+      }
     }
     initData();
   }, []);
 
-  // Countdown effect for Rest Timer
+  // Auto-save active workout session to survive page refresh / background tab termination
   useEffect(() => {
-    if (!restTimer || !restTimer.isRunning || restTimer.remainingSeconds <= 0) return;
+    try {
+      if (activePlan && workoutStartTime) {
+        localStorage.setItem(
+          ACTIVE_SESSION_STORAGE_KEY,
+          JSON.stringify({ activePlan, workoutStartTime })
+        );
+      } else {
+        localStorage.removeItem(ACTIVE_SESSION_STORAGE_KEY);
+      }
+    } catch (e) {
+      console.warn('Failed to persist active workout session', e);
+    }
+  }, [activePlan, workoutStartTime]);
+
+  const isTimerRunning = restTimer?.isRunning;
+  const timerTargetEndTime = restTimer?.targetEndTime;
+
+  // Background-resilient countdown effect for Rest Timer using wall-clock timestamps
+  useEffect(() => {
+    if (!isTimerRunning || !timerTargetEndTime) return;
 
     const interval = setInterval(() => {
       setRestTimer((prev) => {
-        if (!prev || !prev.isRunning) return prev;
-        const next = prev.remainingSeconds - 1;
+        if (!prev || !prev.isRunning || !prev.targetEndTime) return prev;
 
-        if (next === 3 || next === 2 || next === 1) {
+        const now = Date.now();
+        const diffMs = prev.targetEndTime - now;
+        const next = Math.max(0, Math.ceil(diffMs / 1000));
+
+        if ((next === 3 || next === 2 || next === 1) && prev.remainingSeconds !== next) {
           if (profile.soundEnabled) AudioHaptics.playCountdownTick();
         }
 
         if (next <= 0) {
           if (profile.soundEnabled) AudioHaptics.playTimerComplete();
-          return { ...prev, remainingSeconds: 0, isRunning: false };
+          return { ...prev, remainingSeconds: 0, isRunning: false, targetEndTime: null };
         }
 
+        if (prev.remainingSeconds === next) return prev;
         return { ...prev, remainingSeconds: next };
       });
-    }, 1000);
+    }, 250);
 
     return () => clearInterval(interval);
-  }, [restTimer, profile.soundEnabled]);
+  }, [isTimerRunning, timerTargetEndTime, profile.soundEnabled]);
 
   const updateProfile = async (partial: Partial<UserProfile>) => {
     const updated: UserProfile = { ...profile, ...partial };
@@ -365,32 +405,43 @@ export const FitnessProvider: React.FC<{ children: React.ReactNode }> = ({ child
   };
 
   const startRestTimer = (seconds: number, exerciseName?: string) => {
+    const targetEndTime = Date.now() + seconds * 1000;
     setRestTimer({
       totalSeconds: seconds,
       remainingSeconds: seconds,
       isRunning: true,
       exerciseName,
+      targetEndTime,
     });
   };
 
   const pauseRestTimer = () => {
-    setRestTimer((prev) => (prev ? { ...prev, isRunning: false } : null));
+    setRestTimer((prev) => (prev ? { ...prev, isRunning: false, targetEndTime: null } : null));
   };
 
   const resumeRestTimer = () => {
-    setRestTimer((prev) => (prev ? { ...prev, isRunning: true } : null));
+    setRestTimer((prev) => {
+      if (!prev) return null;
+      const targetEndTime = Date.now() + prev.remainingSeconds * 1000;
+      return { ...prev, isRunning: true, targetEndTime };
+    });
   };
 
   const addRestSeconds = (seconds: number) => {
-    setRestTimer((prev) =>
-      prev
-        ? {
-            ...prev,
-            totalSeconds: prev.totalSeconds + seconds,
-            remainingSeconds: Math.max(0, prev.remainingSeconds + seconds),
-          }
-        : null
-    );
+    setRestTimer((prev) => {
+      if (!prev) return null;
+      const newTotal = prev.totalSeconds + seconds;
+      const newRemaining = Math.max(0, prev.remainingSeconds + seconds);
+      const newEndTime = prev.targetEndTime
+        ? prev.targetEndTime + seconds * 1000
+        : (prev.isRunning ? Date.now() + newRemaining * 1000 : null);
+      return {
+        ...prev,
+        totalSeconds: newTotal,
+        remainingSeconds: newRemaining,
+        targetEndTime: newEndTime,
+      };
+    });
   };
 
   const dismissRestTimer = () => {

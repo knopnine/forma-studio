@@ -1,5 +1,6 @@
 import type { CompletedWorkoutLog, PersonalRecord, UserProfile } from '../core/types';
 import { DEFAULT_EQUIPMENT_CONFIG } from '../core/equipmentRules';
+import { supabase, getOrInitAnonymousUser } from './supabaseClient';
 
 export interface IStorageAdapter {
   getUserProfile(): Promise<UserProfile>;
@@ -250,5 +251,255 @@ export class LocalStorageAdapter implements IStorageAdapter {
   }
 }
 
-export const StorageService = new LocalStorageAdapter();
+/**
+ * Hybrid Storage Adapter (Phase 1):
+ * - Guarantees 100% offline-first local persistence via localStorage.
+ * - When Supabase credentials are configured, seamlessly syncs to cloud tables
+ *   using anonymous authentication with zero login prompt friction.
+ */
+export class HybridStorageAdapter implements IStorageAdapter {
+  private local: LocalStorageAdapter;
+
+  constructor(localAdapter?: LocalStorageAdapter) {
+    this.local = localAdapter || new LocalStorageAdapter();
+  }
+
+  async getUserProfile(): Promise<UserProfile> {
+    const localProfile = await this.local.getUserProfile();
+    if (!supabase) return localProfile;
+
+    try {
+      const user = await getOrInitAnonymousUser();
+      if (!user) return localProfile;
+
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      if (!error && data) {
+        const merged: UserProfile = {
+          ...localProfile,
+          name: data.name || localProfile.name,
+          experienceLevel: data.experience_level || localProfile.experienceLevel,
+          primaryGoal: data.primary_goal || localProfile.primaryGoal,
+          weeklyTargetSessions: data.weekly_target_sessions ?? localProfile.weeklyTargetSessions,
+          preferredDuration: data.preferred_duration ?? localProfile.preferredDuration,
+          language: data.language || localProfile.language,
+          soundEnabled: data.sound_enabled ?? localProfile.soundEnabled,
+          hapticsEnabled: data.haptics_enabled ?? localProfile.hapticsEnabled,
+          equipment:
+            data.equipment && typeof data.equipment === 'object'
+              ? { ...localProfile.equipment, ...data.equipment }
+              : localProfile.equipment,
+        };
+        await this.local.saveUserProfile(merged);
+        return merged;
+      }
+    } catch (e) {
+      console.warn('HybridStorageAdapter: remote profile sync skipped', e);
+    }
+    return localProfile;
+  }
+
+  async saveUserProfile(profile: UserProfile): Promise<void> {
+    await this.local.saveUserProfile(profile);
+    if (!supabase) return;
+
+    try {
+      const user = await getOrInitAnonymousUser();
+      if (!user) return;
+
+      await supabase.from('user_profiles').upsert({
+        id: user.id,
+        name: profile.name,
+        experience_level: profile.experienceLevel,
+        primary_goal: profile.primaryGoal,
+        weekly_target_sessions: profile.weeklyTargetSessions,
+        preferred_duration: profile.preferredDuration,
+        language: profile.language,
+        sound_enabled: profile.soundEnabled,
+        haptics_enabled: profile.hapticsEnabled,
+        equipment: profile.equipment,
+        updated_at: new Date().toISOString(),
+      });
+    } catch (e) {
+      console.warn('HybridStorageAdapter: background profile sync skipped', e);
+    }
+  }
+
+  async getWorkoutHistory(): Promise<CompletedWorkoutLog[]> {
+    const localLogs = await this.local.getWorkoutHistory();
+    if (!supabase) return localLogs;
+
+    try {
+      const user = await getOrInitAnonymousUser();
+      if (!user) return localLogs;
+
+      const { data, error } = await supabase
+        .from('workout_logs')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('date', { ascending: false });
+
+      if (!error && data && Array.isArray(data)) {
+        const cloudMap = new Map<string, CompletedWorkoutLog>();
+        data.forEach((row: any) => {
+          cloudMap.set(row.id, {
+            id: row.id,
+            planId: row.plan_id || '',
+            title: row.title,
+            date: row.date,
+            startedAt: row.started_at,
+            completedAt: row.completed_at,
+            durationSeconds: row.duration_seconds,
+            totalVolumeKg: Number(row.total_volume_kg),
+            totalReps: Number(row.total_reps),
+            exercisesCompletedCount: Number(row.exercises_completed_count),
+            exercises: Array.isArray(row.exercises) ? row.exercises : [],
+            notes: row.notes || undefined,
+          });
+        });
+
+        // Add and push local-only logs
+        localLogs.forEach((log) => {
+          if (!cloudMap.has(log.id)) {
+            cloudMap.set(log.id, log);
+            this.saveWorkoutLog(log);
+          }
+        });
+
+        const mergedHistory = Array.from(cloudMap.values()).sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+        localStorage.setItem(STORAGE_KEYS.WORKOUT_HISTORY, JSON.stringify(mergedHistory));
+        return mergedHistory;
+      }
+    } catch (e) {
+      console.warn('HybridStorageAdapter: remote workout history sync skipped', e);
+    }
+    return localLogs;
+  }
+
+  async saveWorkoutLog(log: CompletedWorkoutLog): Promise<void> {
+    await this.local.saveWorkoutLog(log);
+    if (!supabase) return;
+
+    try {
+      const user = await getOrInitAnonymousUser();
+      if (!user) return;
+
+      await supabase.from('workout_logs').upsert({
+        id: log.id,
+        user_id: user.id,
+        plan_id: log.planId,
+        title: log.title,
+        date: log.date,
+        started_at: log.startedAt,
+        completed_at: log.completedAt,
+        duration_seconds: log.durationSeconds,
+        total_volume_kg: log.totalVolumeKg,
+        total_reps: log.totalReps,
+        exercises_completed_count: log.exercisesCompletedCount,
+        exercises: log.exercises,
+        notes: log.notes || null,
+      });
+    } catch (e) {
+      console.warn('HybridStorageAdapter: background workout log sync skipped', e);
+    }
+  }
+
+  async getPersonalRecords(): Promise<PersonalRecord[]> {
+    const localPRs = await this.local.getPersonalRecords();
+    if (!supabase) return localPRs;
+
+    try {
+      const user = await getOrInitAnonymousUser();
+      if (!user) return localPRs;
+
+      const { data, error } = await supabase
+        .from('personal_records')
+        .select('*')
+        .eq('user_id', user.id);
+
+      if (!error && data && Array.isArray(data)) {
+        const prMap = new Map<string, PersonalRecord>();
+        data.forEach((row: any) => {
+          const key = `${row.exercise_id}_${row.metric_type}`;
+          prMap.set(key, {
+            id: row.id,
+            exerciseId: row.exercise_id,
+            exerciseName: row.exercise_name,
+            metricType: row.metric_type,
+            recordValue: Number(row.record_value),
+            achievedAt: row.achieved_at,
+          });
+        });
+
+        localPRs.forEach((pr) => {
+          const key = `${pr.exerciseId}_${pr.metricType}`;
+          const existing = prMap.get(key);
+          if (!existing || pr.recordValue > existing.recordValue) {
+            prMap.set(key, pr);
+            this.savePersonalRecord(pr);
+          }
+        });
+
+        const mergedPRs = Array.from(prMap.values());
+        localStorage.setItem(STORAGE_KEYS.PERSONAL_RECORDS, JSON.stringify(mergedPRs));
+        return mergedPRs;
+      }
+    } catch (e) {
+      console.warn('HybridStorageAdapter: remote PR sync skipped', e);
+    }
+    return localPRs;
+  }
+
+  async savePersonalRecord(pr: PersonalRecord): Promise<void> {
+    await this.local.savePersonalRecord(pr);
+    if (!supabase) return;
+
+    try {
+      const user = await getOrInitAnonymousUser();
+      if (!user) return;
+
+      await supabase.from('personal_records').upsert({
+        id: pr.id,
+        user_id: user.id,
+        exercise_id: pr.exerciseId,
+        exercise_name: pr.exerciseName,
+        metric_type: pr.metricType,
+        record_value: pr.recordValue,
+        achieved_at: pr.achievedAt,
+      });
+    } catch (e) {
+      console.warn('HybridStorageAdapter: background PR sync skipped', e);
+    }
+  }
+
+  async exportBackupJSON(): Promise<string> {
+    return this.local.exportBackupJSON();
+  }
+
+  async importBackupJSON(jsonData: string): Promise<boolean> {
+    const success = await this.local.importBackupJSON(jsonData);
+    if (success && supabase) {
+      this.getUserProfile();
+      this.getWorkoutHistory();
+      this.getPersonalRecords();
+    }
+    return success;
+  }
+
+  async exportAllData(): Promise<string> {
+    return this.local.exportAllData();
+  }
+
+  async importAllData(jsonData: string): Promise<boolean> {
+    return this.importBackupJSON(jsonData);
+  }
+}
+
+export const StorageService = new HybridStorageAdapter();
 

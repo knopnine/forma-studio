@@ -4,11 +4,6 @@ import {
   Play,
   RotateCcw,
   Sliders,
-  CheckCircle2,
-  Clock,
-  Dumbbell,
-  BatteryCharging,
-  Zap,
 } from './Icons';
 import { useFitness } from '../context/FitnessContext';
 import { generateDailyPlan } from '../core/planGenerator';
@@ -67,13 +62,13 @@ export const DailyWizardModal: React.FC = () => {
     <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
       {/* Wizard Header */}
       <div className="border-b border-[#e5e5e5] pb-4">
-        <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373]">
+        <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f]">
           {t.card_smart_daily_badge}
         </span>
         <h2 className="text-2xl font-semibold tracking-tight text-[#0a0a0a] mt-0.5">
           {t.wizard_title}
         </h2>
-        <p className="text-xs text-[#737373] mt-1">
+        <p className="text-xs text-[#6f6f6f] mt-1">
           {t.wizard_subtitle}
         </p>
       </div>
@@ -82,7 +77,7 @@ export const DailyWizardModal: React.FC = () => {
         <div className="space-y-6">
           {/* Energy Level Selector */}
           <div className="space-y-3">
-            <label className="text-xs font-bold uppercase tracking-wider text-[#737373] block">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#6f6f6f] block">
               {t.step_energy}
             </label>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -110,7 +105,7 @@ export const DailyWizardModal: React.FC = () => {
                         </div>
                       </div>
                       <h4 className="font-semibold text-sm text-[#0a0a0a] pt-1">{opt.label}</h4>
-                      <p className="text-xs text-[#737373]">{opt.desc}</p>
+                      <p className="text-xs text-[#6f6f6f]">{opt.desc}</p>
                     </div>
                   </div>
                 );
@@ -120,7 +115,7 @@ export const DailyWizardModal: React.FC = () => {
 
           {/* Duration Selector */}
           <div className="space-y-3">
-            <label className="text-xs font-bold uppercase tracking-wider text-[#737373] block">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#6f6f6f] block">
               {t.step_duration}
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -146,7 +141,7 @@ export const DailyWizardModal: React.FC = () => {
 
           {/* Muscle Target Focus */}
           <div className="space-y-3">
-            <label className="text-xs font-bold uppercase tracking-wider text-[#737373] block">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#6f6f6f] block">
               {t.step_focus}
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -160,7 +155,7 @@ export const DailyWizardModal: React.FC = () => {
                     className={'py-2.5 px-3 rounded-[18px] text-xs font-semibold transition-all cursor-pointer text-center border ' +
                       (isSelected
                         ? 'bg-[#0a0a0a] text-[#fafafa] border-[#0a0a0a]'
-                        : 'bg-[#ffffff] text-[#737373] border-[#e5e5e5] hover:text-[#0a0a0a] hover:border-[#a3a3a3]')}
+                        : 'bg-[#ffffff] text-[#6f6f6f] border-[#e5e5e5] hover:text-[#0a0a0a] hover:border-[#a3a3a3]')}
                   >
                     {f.label}
                   </button>
@@ -189,7 +184,7 @@ export const DailyWizardModal: React.FC = () => {
                   {generatedPlan.estimatedMinutes} {t.mins} • {generatedPlan.energyLevel.toUpperCase()}
                 </span>
                 <h3 className="text-xl font-semibold text-[#0a0a0a] mt-1">{generatedPlan.title}</h3>
-                <p className="text-xs text-[#737373] mt-0.5">{generatedPlan.description}</p>
+                <p className="text-xs text-[#6f6f6f] mt-0.5">{generatedPlan.description}</p>
               </div>
 
               <div className="flex items-center gap-2">
@@ -212,7 +207,7 @@ export const DailyWizardModal: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#737373] block">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#6f6f6f] block">
                 {t.plan_prescribed_movements} ({generatedPlan.exercises.length})
               </span>
 
@@ -232,7 +227,7 @@ export const DailyWizardModal: React.FC = () => {
                           {pEx.exercise.name}
                         </h4>
                         <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-[11px] text-[#737373] capitalize">
+                          <span className="text-[11px] text-[#6f6f6f] capitalize">
                             {pEx.exercise.target} • {pEx.exercise.equipment}
                           </span>
                         </div>
@@ -243,7 +238,7 @@ export const DailyWizardModal: React.FC = () => {
                       <span className="text-xs font-bold text-[#0a0a0a]">
                         {pEx.targetSets} × {pEx.targetReps} reps
                       </span>
-                      <span className="text-[10px] text-[#737373] block">
+                      <span className="text-[10px] text-[#6f6f6f] block">
                         {pEx.restBetweenSetsSeconds}s rest
                       </span>
                     </div>

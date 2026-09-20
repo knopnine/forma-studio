@@ -6,11 +6,7 @@ import {
   BookOpen,
   Wrench,
   Timer,
-  CheckCircle2,
   ArrowRight,
-  Target,
-  BarChart3,
-  Layers,
   Info,
 } from './Icons';
 import { useFitness } from '../context/FitnessContext';
@@ -49,7 +45,7 @@ export const LandingPage: React.FC = () => {
         </h1>
 
         {/* Body Subtitle */}
-        <p className="text-sm md:text-base text-[#737373] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm md:text-base text-[#6f6f6f] max-w-2xl mx-auto leading-relaxed">
           {t.landing_hero_subtitle}
         </p>
 
@@ -76,15 +72,15 @@ export const LandingPage: React.FC = () => {
         <div className="grid grid-cols-3 gap-3 pt-6 max-w-xl mx-auto border-t border-[#e5e5e5]">
           <div className="text-center p-2">
             <span className="text-xl md:text-2xl font-bold text-[#0a0a0a] block">1,324</span>
-            <span className="text-[11px] font-medium text-[#737373] uppercase tracking-wider">Movements</span>
+            <span className="text-[11px] font-medium text-[#6f6f6f] uppercase tracking-wider">Movements</span>
           </div>
           <div className="text-center p-2 border-x border-[#e5e5e5]">
             <span className="text-xl md:text-2xl font-bold text-[#0a0a0a] block">100%</span>
-            <span className="text-[11px] font-medium text-[#737373] uppercase tracking-wider">Local & Offline</span>
+            <span className="text-[11px] font-medium text-[#6f6f6f] uppercase tracking-wider">Local & Offline</span>
           </div>
           <div className="text-center p-2">
             <span className="text-xl md:text-2xl font-bold text-[#0a0a0a] block">$0</span>
-            <span className="text-[11px] font-medium text-[#737373] uppercase tracking-wider">Paywalls / Ads</span>
+            <span className="text-[11px] font-medium text-[#6f6f6f] uppercase tracking-wider">Paywalls / Ads</span>
           </div>
         </div>
       </section>
@@ -95,7 +91,7 @@ export const LandingPage: React.FC = () => {
           <h2 className="text-xl md:text-2xl font-bold tracking-tight text-[#0a0a0a]">
             {t.landing_feature_section_title}
           </h2>
-          <p className="text-xs md:text-sm text-[#737373]">
+          <p className="text-xs md:text-sm text-[#6f6f6f]">
             {t.landing_feature_section_subtitle}
           </p>
         </div>
@@ -109,7 +105,7 @@ export const LandingPage: React.FC = () => {
             <h3 className="text-base font-semibold text-[#0a0a0a]">
               {t.landing_feat1_title}
             </h3>
-            <p className="text-xs text-[#737373] leading-relaxed">
+            <p className="text-xs text-[#6f6f6f] leading-relaxed">
               {t.landing_feat1_desc}
             </p>
             <div className="pt-2">
@@ -131,7 +127,7 @@ export const LandingPage: React.FC = () => {
             <h3 className="text-base font-semibold text-[#0a0a0a]">
               {t.landing_feat2_title}
             </h3>
-            <p className="text-xs text-[#737373] leading-relaxed">
+            <p className="text-xs text-[#6f6f6f] leading-relaxed">
               {t.landing_feat2_desc}
             </p>
             <div className="pt-2">
@@ -153,7 +149,7 @@ export const LandingPage: React.FC = () => {
             <h3 className="text-base font-semibold text-[#0a0a0a]">
               {t.landing_feat3_title}
             </h3>
-            <p className="text-xs text-[#737373] leading-relaxed">
+            <p className="text-xs text-[#6f6f6f] leading-relaxed">
               {t.landing_feat3_desc}
             </p>
             <div className="pt-2">
@@ -175,7 +171,7 @@ export const LandingPage: React.FC = () => {
             <h3 className="text-base font-semibold text-[#0a0a0a]">
               {t.landing_feat4_title}
             </h3>
-            <p className="text-xs text-[#737373] leading-relaxed">
+            <p className="text-xs text-[#6f6f6f] leading-relaxed">
               {t.landing_feat4_desc}
             </p>
             <div className="pt-2">
@@ -199,7 +195,7 @@ export const LandingPage: React.FC = () => {
               <h3 className="text-lg font-bold tracking-tight text-[#0a0a0a]">
                 Sample Indexed Movements
               </h3>
-              <p className="text-xs text-[#737373]">
+              <p className="text-xs text-[#6f6f6f]">
                 Click any movement to test the seamless pure-white form visualizer.
               </p>
             </div>
@@ -220,7 +216,7 @@ export const LandingPage: React.FC = () => {
                 className="clinical-card p-4 hover:border-[#0a0a0a] cursor-pointer transition-all flex flex-col justify-between group space-y-3"
               >
                 <div>
-                  <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-wider text-[#737373] mb-1">
+                  <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-wider text-[#6f6f6f] mb-1">
                     <span>{ex.target}</span>
                     <span className="badge-soft text-[9px]">{ex.difficulty}</span>
                   </div>
@@ -229,7 +225,7 @@ export const LandingPage: React.FC = () => {
                   </h4>
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-[#e5e5e5] text-[11px] text-[#737373]">
+                <div className="flex items-center justify-between pt-2 border-t border-[#e5e5e5] text-[11px] text-[#6f6f6f]">
                   <span className="capitalize">{ex.equipment}</span>
                   <div className="flex items-center gap-1 font-medium text-[#0a0a0a] group-hover:translate-x-0.5 transition-transform">
                     <span>Inspect</span>
@@ -268,13 +264,13 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* Landing Footer */}
-      <footer className="text-center pt-8 border-t border-[#e5e5e5] text-xs text-[#737373] space-y-2">
+      <footer className="text-center pt-8 border-t border-[#e5e5e5] text-xs text-[#6f6f6f] space-y-2">
         <div className="flex items-center justify-center gap-2">
           <div className="w-5 h-5 rounded-[6px] bg-[#0a0a0a] text-[#fafafa] flex items-center justify-center">
             <Dumbbell className="w-3 h-3" />
           </div>
           <span className="font-semibold text-sm text-[#0a0a0a]">Forma</span>
-          <span className="text-[11px] text-[#737373]">/ studio</span>
+          <span className="text-[11px] text-[#6f6f6f]">/ studio</span>
         </div>
         <p className="text-[11px]">
           {t.landing_footer_text}

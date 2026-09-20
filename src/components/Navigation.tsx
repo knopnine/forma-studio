@@ -52,7 +52,7 @@ export const Navigation: React.FC = () => {
             <span className="font-semibold text-sm tracking-tight text-[#0a0a0a]">
               Forma
             </span>
-            <span className="text-[11px] font-medium text-[#737373] tracking-normal">
+            <span className="text-[11px] font-medium text-[#6f6f6f] tracking-normal">
               / studio
             </span>
           </div>
@@ -70,7 +70,7 @@ export const Navigation: React.FC = () => {
                   className={'px-3 py-1.5 rounded-[18px] text-[13px] font-medium transition-all flex items-center gap-1.5 cursor-pointer ' +
                     (isActive
                       ? 'bg-[#0a0a0a] text-[#fafafa]'
-                      : 'text-[#737373] hover:text-[#0a0a0a] hover:bg-[#f5f5f5]')}
+                      : 'text-[#6f6f6f] hover:text-[#0a0a0a] hover:bg-[#f5f5f5]')}
                 >
                   {item.icon}
                   <span>{item.label}</span>
@@ -118,7 +118,7 @@ export const Navigation: React.FC = () => {
 
               <div
                 onClick={() => setCurrentTab('equipment')}
-                className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-[18px] bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[11px] font-medium text-[#737373] hover:text-[#0a0a0a] cursor-pointer transition-colors border border-[#e5e5e5]"
+                className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-[18px] bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[11px] font-medium text-[#6f6f6f] hover:text-[#0a0a0a] cursor-pointer transition-colors border border-[#e5e5e5]"
                 title={t.gear_title}
               >
                 <Wrench className="w-4 h-4" />
@@ -141,7 +141,7 @@ export const Navigation: React.FC = () => {
                 className={'flex flex-col items-center justify-center py-1 px-2 rounded-[18px] text-[10px] transition-all cursor-pointer ' +
                   (isActive
                     ? 'bg-[#0a0a0a] text-[#fafafa] font-semibold'
-                    : 'text-[#737373] hover:text-[#0a0a0a]')}
+                    : 'text-[#6f6f6f] hover:text-[#0a0a0a]')}
               >
                 <div className="w-4 h-4 flex items-center justify-center">
                   {item.icon}

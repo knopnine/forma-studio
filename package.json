@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "node ./node_modules/vite/bin/vite.js",
     "build": "node ./node_modules/vite/bin/vite.js build",
-    "preview": "node ./node_modules/vite/bin/vite.js preview"
+    "preview": "node ./node_modules/vite/bin/vite.js preview",
+    "test": "vitest run"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.116.0",
     "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
     "lucide-react": "^1.16.0",
@@ -25,6 +27,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "tailwindcss": "^4.0.9",
     "typescript": "~5.7.2",
-    "vite": "^6.2.0"
+    "vite": "^6.2.0",
+    "vitest": "^5.0.1"
   }
 }

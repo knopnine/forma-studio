@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Layers,
-  Sparkles,
-  ArrowRight,
-  Flame,
-  CheckCircle2,
-} from './Icons';
+import { ArrowRight } from './Icons';
 import { useFitness } from '../context/FitnessContext';
 import { generateDailyPlan } from '../core/planGenerator';
 import type { TargetMuscleFocus } from '../core/types';
@@ -91,7 +85,7 @@ export const WeeklySplitsView: React.FC = () => {
     <div className="max-w-4xl mx-auto space-y-6 animate-fadeIn">
       <div className="flex items-center justify-between border-b border-[#e5e5e5] pb-4">
         <div>
-          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373]">
+          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f]">
             Structured Periodization
           </span>
           <h2 className="text-2xl font-semibold tracking-tight text-[#0a0a0a] mt-0.5">
@@ -109,10 +103,10 @@ export const WeeklySplitsView: React.FC = () => {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="badge-solid text-[10px]">{split.frequency}</span>
-                <span className="text-xs text-[#737373]">{split.durationMinutes} Mins</span>
+                <span className="text-xs text-[#6f6f6f]">{split.durationMinutes} Mins</span>
               </div>
               <h3 className="text-lg font-semibold text-[#0a0a0a]">{split.title}</h3>
-              <p className="text-xs text-[#737373]">{split.description}</p>
+              <p className="text-xs text-[#6f6f6f]">{split.description}</p>
 
               <div className="flex flex-wrap gap-1.5 pt-2">
                 {split.highlights.map((h, i) => (

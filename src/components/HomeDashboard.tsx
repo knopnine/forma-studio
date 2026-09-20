@@ -6,7 +6,6 @@ import {
   ArrowRight,
   TrendingUp,
   Trophy,
-  Dumbbell,
   PlayCircle,
 } from './Icons';
 import { useFitness } from '../context/FitnessContext';
@@ -39,7 +38,7 @@ export const HomeDashboard: React.FC = () => {
             <h1 className="text-3xl md:text-4xl font-semibold tracking-[-0.03em] text-[#0a0a0a] leading-tight">
               {t.hero_greeting}, {profile.name}?
             </h1>
-            <p className="text-sm text-[#737373] max-w-xl leading-relaxed">
+            <p className="text-sm text-[#6f6f6f] max-w-xl leading-relaxed">
               {t.hero_subtitle}
             </p>
           </div>
@@ -71,7 +70,7 @@ export const HomeDashboard: React.FC = () => {
               <PlayCircle className="w-5 h-5 animate-pulse" />
             </div>
             <div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#737373]">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#6f6f6f]">
                 {t.workout_in_progress}
               </span>
               <h4 className="text-base font-semibold text-[#0a0a0a]">{activePlan.title}</h4>
@@ -92,7 +91,7 @@ export const HomeDashboard: React.FC = () => {
         <div className="clinical-card flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373]">
+              <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f]">
                 {t.stat_active_streak}
               </span>
               <div className="w-8 h-8 rounded-[18px] bg-[#f5f5f5] text-[#0a0a0a] flex items-center justify-center">
@@ -100,10 +99,10 @@ export const HomeDashboard: React.FC = () => {
               </div>
             </div>
             <div className="text-4xl font-semibold tracking-[-0.04em] text-[#0a0a0a]">
-              {currentStreak} <span className="text-sm font-normal text-[#737373]">{t.days}</span>
+              {currentStreak} <span className="text-sm font-normal text-[#6f6f6f]">{t.days}</span>
             </div>
           </div>
-          <p className="text-xs text-[#737373] mt-3 pt-3 border-t border-[#f5f5f5]">
+          <p className="text-xs text-[#6f6f6f] mt-3 pt-3 border-t border-[#f5f5f5]">
             {t.stat_active_streak_sub}
           </p>
         </div>
@@ -111,7 +110,7 @@ export const HomeDashboard: React.FC = () => {
         <div className="clinical-card flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373]">
+              <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f]">
                 {t.stat_total_sessions}
               </span>
               <div className="w-8 h-8 rounded-[18px] bg-[#f5f5f5] text-[#0a0a0a] flex items-center justify-center">
@@ -119,10 +118,10 @@ export const HomeDashboard: React.FC = () => {
               </div>
             </div>
             <div className="text-4xl font-semibold tracking-[-0.04em] text-[#0a0a0a]">
-              {totalCompleted} <span className="text-sm font-normal text-[#737373]">{t.completed}</span>
+              {totalCompleted} <span className="text-sm font-normal text-[#6f6f6f]">{t.completed}</span>
             </div>
           </div>
-          <p className="text-xs text-[#737373] mt-3 pt-3 border-t border-[#f5f5f5]">
+          <p className="text-xs text-[#6f6f6f] mt-3 pt-3 border-t border-[#f5f5f5]">
             {profile.weeklyTargetSessions} {t.stat_total_sessions_sub}
           </p>
         </div>
@@ -130,7 +129,7 @@ export const HomeDashboard: React.FC = () => {
         <div className="clinical-card flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373]">
+              <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f]">
                 {t.stat_total_volume}
               </span>
               <div className="w-8 h-8 rounded-[18px] bg-[#f5f5f5] text-[#0a0a0a] flex items-center justify-center">
@@ -138,10 +137,10 @@ export const HomeDashboard: React.FC = () => {
               </div>
             </div>
             <div className="text-4xl font-semibold tracking-[-0.04em] text-[#0a0a0a]">
-              {totalVolumeKg > 0 ? (totalVolumeKg / 1000).toFixed(1) : 0} <span className="text-sm font-normal text-[#737373]">{t.tonnes}</span>
+              {totalVolumeKg > 0 ? (totalVolumeKg / 1000).toFixed(1) : 0} <span className="text-sm font-normal text-[#6f6f6f]">{t.tonnes}</span>
             </div>
           </div>
-          <p className="text-xs text-[#737373] mt-3 pt-3 border-t border-[#f5f5f5]">
+          <p className="text-xs text-[#6f6f6f] mt-3 pt-3 border-t border-[#f5f5f5]">
             {personalRecords.length} {t.stat_prs_logged}
           </p>
         </div>
@@ -155,7 +154,7 @@ export const HomeDashboard: React.FC = () => {
           </h2>
           <button
             onClick={() => setCurrentTab('splits')}
-            className="text-xs font-medium text-[#737373] hover:text-[#0a0a0a] flex items-center gap-1 cursor-pointer transition-colors"
+            className="text-xs font-medium text-[#6f6f6f] hover:text-[#0a0a0a] flex items-center gap-1 cursor-pointer transition-colors"
           >
             <span>{t.link_all_programs}</span>
             <ArrowRight className="w-5 h-5" />
@@ -174,7 +173,7 @@ export const HomeDashboard: React.FC = () => {
               <h3 className="text-base font-semibold text-[#0a0a0a] group-hover:text-[#171717]">
                 {t.card_smart_daily_title}
               </h3>
-              <p className="text-xs text-[#737373] max-w-sm leading-relaxed">
+              <p className="text-xs text-[#6f6f6f] max-w-sm leading-relaxed">
                 {t.card_smart_daily_desc}
               </p>
             </div>
@@ -194,7 +193,7 @@ export const HomeDashboard: React.FC = () => {
               <h3 className="text-base font-semibold text-[#0a0a0a] group-hover:text-[#171717]">
                 {t.card_library_title}
               </h3>
-              <p className="text-xs text-[#737373] max-w-sm leading-relaxed">
+              <p className="text-xs text-[#6f6f6f] max-w-sm leading-relaxed">
                 {t.card_library_desc}
               </p>
             </div>
@@ -209,15 +208,15 @@ export const HomeDashboard: React.FC = () => {
       {recentWorkout && (
         <div className="clinical-card space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373]">
+            <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f]">
               {t.card_recent_title}
             </span>
-            <span className="text-xs text-[#737373]">{recentWorkout.date}</span>
+            <span className="text-xs text-[#6f6f6f]">{recentWorkout.date}</span>
           </div>
           <div className="flex items-center justify-between">
             <div>
               <h4 className="text-base font-semibold text-[#0a0a0a]">{recentWorkout.title}</h4>
-              <p className="text-xs text-[#737373] mt-0.5">
+              <p className="text-xs text-[#6f6f6f] mt-0.5">
                 {Math.round(recentWorkout.durationSeconds / 60)} min • {recentWorkout.totalReps} total reps • {recentWorkout.exercisesCompletedCount} movements
               </p>
             </div>

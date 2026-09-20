@@ -1,11 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import {
-  BookOpen,
-  Search,
-  Dumbbell,
-  Target,
-  Info,
-} from './Icons';
+import { Search } from './Icons';
 import { useFitness } from '../context/FitnessContext';
 import { ExerciseDataset } from '../core/datasetService';
 import type { StandardEquipmentType } from '../core/types';
@@ -47,7 +41,7 @@ export const ExerciseLibrary: React.FC = () => {
       {/* Header & Search Bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#e5e5e5] pb-4">
         <div>
-          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373]">
+          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f]">
             1,324 Movements Indexed
           </span>
           <h2 className="text-2xl font-semibold tracking-tight text-[#0a0a0a] mt-0.5">
@@ -56,7 +50,7 @@ export const ExerciseLibrary: React.FC = () => {
         </div>
 
         <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 text-[#737373] absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[#6f6f6f] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search pull-ups, squats, curls..."
@@ -69,7 +63,7 @@ export const ExerciseLibrary: React.FC = () => {
 
       {/* Category Pills */}
       <div className="space-y-2">
-        <span className="text-[11px] font-bold uppercase tracking-wider text-[#737373] block">
+        <span className="text-[11px] font-bold uppercase tracking-wider text-[#6f6f6f] block">
           Muscle Groups
         </span>
         <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none">
@@ -82,7 +76,7 @@ export const ExerciseLibrary: React.FC = () => {
                 className={'px-3 py-1.5 rounded-[18px] text-xs font-semibold shrink-0 transition-all cursor-pointer capitalize ' +
                   (isSelected
                     ? 'bg-[#0a0a0a] text-[#fafafa]'
-                    : 'bg-[#ffffff] text-[#737373] border border-[#e5e5e5] hover:border-[#0a0a0a]')}
+                    : 'bg-[#ffffff] text-[#6f6f6f] border border-[#e5e5e5] hover:border-[#0a0a0a]')}
               >
                 {cat}
               </button>
@@ -93,7 +87,7 @@ export const ExerciseLibrary: React.FC = () => {
 
       {/* Equipment Filter Pills */}
       <div className="space-y-2">
-        <span className="text-[11px] font-bold uppercase tracking-wider text-[#737373] block">
+        <span className="text-[11px] font-bold uppercase tracking-wider text-[#6f6f6f] block">
           Filter by Equipment
         </span>
         <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none">
@@ -106,11 +100,11 @@ export const ExerciseLibrary: React.FC = () => {
                 className={'px-3 py-1.5 rounded-[18px] text-xs font-medium shrink-0 transition-all cursor-pointer flex items-center gap-1.5 ' +
                   (isSelected
                     ? 'bg-[#0a0a0a] text-[#fafafa] shadow-xs font-semibold'
-                    : 'bg-[#f5f5f5] text-[#737373] hover:text-[#0a0a0a] border border-[#e5e5e5]')}
+                    : 'bg-[#f5f5f5] text-[#6f6f6f] hover:text-[#0a0a0a] border border-[#e5e5e5]')}
               >
                 <span>{eq.label}</span>
                 {eq.count && (
-                  <span className={'text-[10px] px-1.5 py-0.2 rounded-full ' + (isSelected ? 'bg-[#ffffff]/20 text-[#fafafa]' : 'bg-[#e5e5e5] text-[#737373]')}>
+                  <span className={'text-[10px] px-1.5 py-0.2 rounded-full ' + (isSelected ? 'bg-[#ffffff]/20 text-[#fafafa]' : 'bg-[#e5e5e5] text-[#6f6f6f]')}>
                     {eq.count}
                   </span>
                 )}
@@ -121,7 +115,7 @@ export const ExerciseLibrary: React.FC = () => {
       </div>
 
       {/* Results Counter */}
-      <div className="flex items-center justify-between text-xs text-[#737373]">
+      <div className="flex items-center justify-between text-xs text-[#6f6f6f]">
         <span>Showing {filteredExercises.length} movements</span>
         {selectedEquipment !== 'all' && (
           <button 

@@ -43,7 +43,7 @@ export const ActiveWorkoutView: React.FC = () => {
           <PlayCircle className="w-6 h-6" />
         </div>
         <h3 className="text-xl font-semibold text-[#0a0a0a]">No Active Session</h3>
-        <p className="text-xs text-[#737373]">
+        <p className="text-xs text-[#6f6f6f]">
           Pick a routine from the Daily Wizard or choose a pre-built Weekly Split to begin.
         </p>
         <button
@@ -160,7 +160,7 @@ export const ActiveWorkoutView: React.FC = () => {
                   <h3 className="font-semibold text-base text-[#0a0a0a] capitalize">
                     {pEx.exercise.name}
                   </h3>
-                  <span className="text-xs text-[#737373] capitalize">
+                  <span className="text-xs text-[#6f6f6f] capitalize">
                     {pEx.exercise.target} • {pEx.exercise.equipment}
                   </span>
                 </div>
@@ -179,7 +179,7 @@ export const ActiveWorkoutView: React.FC = () => {
                 {/* In-Session Swap Exercise Trigger */}
                 <button
                   onClick={() => setSwapTargetIndex(exIdx)}
-                  className="p-1.5 rounded-[18px] hover:bg-[#f5f5f5] text-[#737373] hover:text-[#0a0a0a] transition-colors cursor-pointer"
+                  className="p-1.5 rounded-[18px] hover:bg-[#f5f5f5] text-[#6f6f6f] hover:text-[#0a0a0a] transition-colors cursor-pointer"
                   title={t.btn_swap_exercise}
                 >
                   <RotateCcw className="w-4 h-4" />
@@ -187,7 +187,7 @@ export const ActiveWorkoutView: React.FC = () => {
 
                 <button
                   onClick={() => setSelectedExerciseForDetail(pEx.exercise.id)}
-                  className="p-1.5 rounded-[18px] hover:bg-[#f5f5f5] text-[#737373] hover:text-[#0a0a0a] transition-colors cursor-pointer"
+                  className="p-1.5 rounded-[18px] hover:bg-[#f5f5f5] text-[#6f6f6f] hover:text-[#0a0a0a] transition-colors cursor-pointer"
                   title="View Technique Guide"
                 >
                   <Info className="w-4 h-4" />
@@ -197,7 +197,7 @@ export const ActiveWorkoutView: React.FC = () => {
 
             {/* Set Table */}
             <div className="space-y-2">
-              <div className="grid grid-cols-12 gap-2 text-[11px] font-semibold uppercase tracking-wider text-[#737373] px-2">
+              <div className="grid grid-cols-12 gap-2 text-[11px] font-semibold uppercase tracking-wider text-[#6f6f6f] px-2">
                 <span className="col-span-2">{t.set_header}</span>
                 <span className="col-span-4">{t.actual_reps_header}</span>
                 <span className="col-span-4">{t.weight_header}</span>
@@ -272,7 +272,7 @@ export const ActiveWorkoutView: React.FC = () => {
 
       {/* Notes & Completion */}
       <div className="clinical-card space-y-3">
-        <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373] block">
+        <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f] block">
           Session Reflection & Notes
         </span>
         <textarea
@@ -327,7 +327,7 @@ export const ActiveWorkoutView: React.FC = () => {
                 <div className="p-6 space-y-5">
                   {/* Search Bar */}
                   <div className="relative">
-                    <Search className="w-4 h-4 text-[#737373] absolute left-3 top-1/2 -translate-y-1/2" />
+                    <Search className="w-4 h-4 text-[#6f6f6f] absolute left-3 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       value={swapSearchQuery}
@@ -340,7 +340,7 @@ export const ActiveWorkoutView: React.FC = () => {
                   {/* If Search Query Active: Show Search Results */}
                   {swapSearchQuery.trim() ? (
                     <div className="space-y-2">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#737373] block">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#6f6f6f] block">
                         {t.swap_all_compatible_title} ({searchResults.length})
                       </span>
                       {searchResults.length > 0 ? (
@@ -354,14 +354,14 @@ export const ActiveWorkoutView: React.FC = () => {
                                 <h4 className="font-semibold text-xs text-[#0a0a0a] capitalize">
                                   {alt.name}
                                 </h4>
-                                <span className="text-[10px] text-[#737373] capitalize">
+                                <span className="text-[10px] text-[#6f6f6f] capitalize">
                                   {alt.target} • {alt.equipment}
                                 </span>
                               </div>
                               <div className="flex items-center gap-2">
                                 <button
                                   onClick={() => setSelectedExerciseForDetail(alt.id)}
-                                  className="p-1 rounded-[14px] hover:bg-[#f5f5f5] text-[#737373]"
+                                  className="p-1 rounded-[14px] hover:bg-[#f5f5f5] text-[#6f6f6f]"
                                   title="Preview Form"
                                 >
                                   <Info className="w-3.5 h-3.5" />
@@ -377,7 +377,7 @@ export const ActiveWorkoutView: React.FC = () => {
                           ))}
                         </div>
                       ) : (
-                        <p className="text-xs text-[#737373] py-4 text-center">
+                        <p className="text-xs text-[#6f6f6f] py-4 text-center">
                           No compatible movements matching &quot;{swapSearchQuery}&quot;
                         </p>
                       )}
@@ -385,7 +385,7 @@ export const ActiveWorkoutView: React.FC = () => {
                   ) : (
                     /* Otherwise: Show Recommended Alternatives */
                     <div className="space-y-3">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#737373] block">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#6f6f6f] block">
                         {t.swap_recommended_title} ({recommendedAlternatives.length})
                       </span>
                       {recommendedAlternatives.length > 0 ? (
@@ -399,14 +399,14 @@ export const ActiveWorkoutView: React.FC = () => {
                                 <h4 className="font-semibold text-xs text-[#0a0a0a] capitalize">
                                   {alt.name}
                                 </h4>
-                                <span className="text-[10px] text-[#737373] capitalize">
+                                <span className="text-[10px] text-[#6f6f6f] capitalize">
                                   {alt.target} • {alt.equipment}
                                 </span>
                               </div>
                               <div className="flex items-center gap-2">
                                 <button
                                   onClick={() => setSelectedExerciseForDetail(alt.id)}
-                                  className="p-1 rounded-[14px] hover:bg-[#f5f5f5] text-[#737373]"
+                                  className="p-1 rounded-[14px] hover:bg-[#f5f5f5] text-[#6f6f6f]"
                                   title="Preview Form"
                                 >
                                   <Info className="w-3.5 h-3.5" />
@@ -422,7 +422,7 @@ export const ActiveWorkoutView: React.FC = () => {
                           ))}
                         </div>
                       ) : (
-                        <p className="text-xs text-[#737373] py-4 text-center">
+                        <p className="text-xs text-[#6f6f6f] py-4 text-center">
                           No direct alternatives found for this target muscle with current gear. Use the search bar above to pick any movement!
                         </p>
                       )}

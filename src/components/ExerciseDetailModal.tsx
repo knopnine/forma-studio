@@ -12,6 +12,17 @@ export const ExerciseDetailModal: React.FC = () => {
   const { selectedExerciseForDetail, setSelectedExerciseForDetail, profile } = useFitness();
   const t = getTranslation(profile.language);
 
+  React.useEffect(() => {
+    if (!selectedExerciseForDetail) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedExerciseForDetail(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedExerciseForDetail, setSelectedExerciseForDetail]);
+
   if (!selectedExerciseForDetail) return null;
   const exercise = ExerciseDataset.getById(selectedExerciseForDetail);
   if (!exercise) return null;
@@ -32,16 +43,6 @@ export const ExerciseDetailModal: React.FC = () => {
 
   const equipmentTip = getEquipmentSetupTip(exercise, profile.equipment);
   const requiredGearList = getExerciseRequiredEquipment(exercise);
-
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setSelectedExerciseForDetail(null);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [setSelectedExerciseForDetail]);
 
   return typeof document !== 'undefined' ? createPortal(
     <div
@@ -86,7 +87,7 @@ export const ExerciseDetailModal: React.FC = () => {
                 <Target className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-[11px] text-[#737373] block font-medium">{t.detail_primary_target}</span>
+                <span className="text-[11px] text-[#6f6f6f] block font-medium">{t.detail_primary_target}</span>
                 <span className="text-sm font-semibold text-[#0a0a0a] capitalize">{exercise.target}</span>
               </div>
             </div>
@@ -96,7 +97,7 @@ export const ExerciseDetailModal: React.FC = () => {
                 <Dumbbell className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-[11px] text-[#737373] block font-medium">{t.detail_required_gear}</span>
+                <span className="text-[11px] text-[#6f6f6f] block font-medium">{t.detail_required_gear}</span>
                 <div className="flex flex-wrap gap-1 mt-0.5">
                   {requiredGearList.map((g, idx) => (
                     <span key={idx} className="badge-solid text-[10px] capitalize">
@@ -117,7 +118,7 @@ export const ExerciseDetailModal: React.FC = () => {
 
           {exercise.secondary_muscles && exercise.secondary_muscles.length > 0 && (
             <div>
-              <span className="text-xs font-semibold text-[#737373] block mb-2">
+              <span className="text-xs font-semibold text-[#6f6f6f] block mb-2">
                 {t.detail_supporting_muscles}
               </span>
               <div className="flex flex-wrap gap-1.5">
@@ -135,7 +136,7 @@ export const ExerciseDetailModal: React.FC = () => {
 
 
           <div className="bg-[#ffffff] rounded-[18px] p-4 border border-[#e5e5e5] space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#737373]">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#6f6f6f]">
               {t.detail_execution_steps}
             </h4>
             {steps.length > 0 ? (

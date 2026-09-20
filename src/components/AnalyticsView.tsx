@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Flame,
-  TrendingUp,
   Trophy,
   Calendar,
   Download,
@@ -67,7 +66,7 @@ export const AnalyticsView: React.FC = () => {
       {/* Header & Export Controls */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#e5e5e5] pb-4">
         <div>
-          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373]">
+          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f]">
             Training Analytics & Records
           </span>
           <h2 className="text-2xl font-semibold tracking-tight text-[#0a0a0a] mt-0.5">
@@ -98,37 +97,37 @@ export const AnalyticsView: React.FC = () => {
       {/* KPI Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="clinical-card">
-          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373] block mb-2">
+          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f] block mb-2">
             Total Tonnage Lifted
           </span>
           <div className="text-3xl font-semibold tracking-[-0.03em] text-[#0a0a0a]">
-            {totalVolumeKg > 0 ? (totalVolumeKg / 1000).toFixed(1) : 0} <span className="text-sm font-normal text-[#737373]">tonnes</span>
+            {totalVolumeKg > 0 ? (totalVolumeKg / 1000).toFixed(1) : 0} <span className="text-sm font-normal text-[#6f6f6f]">tonnes</span>
           </div>
-          <p className="text-xs text-[#737373] mt-2">
+          <p className="text-xs text-[#6f6f6f] mt-2">
             Across {history.length} completed sessions
           </p>
         </div>
 
         <div className="clinical-card">
-          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373] block mb-2">
+          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f] block mb-2">
             Total Repetitions
           </span>
           <div className="text-3xl font-semibold tracking-[-0.03em] text-[#0a0a0a]">
-            {totalReps.toLocaleString()} <span className="text-sm font-normal text-[#737373]">reps</span>
+            {totalReps.toLocaleString()} <span className="text-sm font-normal text-[#6f6f6f]">reps</span>
           </div>
-          <p className="text-xs text-[#737373] mt-2">
+          <p className="text-xs text-[#6f6f6f] mt-2">
             All bodyweight & loaded sets
           </p>
         </div>
 
         <div className="clinical-card">
-          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373] block mb-2">
+          <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f] block mb-2">
             Time Under Tension
           </span>
           <div className="text-3xl font-semibold tracking-[-0.03em] text-[#0a0a0a]">
-            {totalDurationMinutes} <span className="text-sm font-normal text-[#737373]">mins</span>
+            {totalDurationMinutes} <span className="text-sm font-normal text-[#6f6f6f]">mins</span>
           </div>
-          <p className="text-xs text-[#737373] mt-2">
+          <p className="text-xs text-[#6f6f6f] mt-2">
             Active workout volume
           </p>
         </div>
@@ -139,11 +138,11 @@ export const AnalyticsView: React.FC = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4 text-[#0a0a0a]" />
-            <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373]">
+            <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f]">
               28-Day Consistency Heatmap
             </span>
           </div>
-          <span className="text-xs text-[#737373]">
+          <span className="text-xs text-[#6f6f6f]">
             {history.length} Sessions Logged
           </span>
         </div>
@@ -162,7 +161,7 @@ export const AnalyticsView: React.FC = () => {
                 >
                   {hasActivity && <Flame className="w-3 h-3 text-[#fafafa]" />}
                 </div>
-                <span className="text-[9px] text-[#737373]">{item.day}</span>
+                <span className="text-[9px] text-[#6f6f6f]">{item.day}</span>
               </div>
             );
           })}
@@ -174,7 +173,7 @@ export const AnalyticsView: React.FC = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Trophy className="w-4 h-4 text-[#0a0a0a]" />
-            <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#737373]">
+            <span className="text-[12px] uppercase font-semibold tracking-[0.6px] text-[#6f6f6f]">
               Personal Records (PRs)
             </span>
           </div>
@@ -194,18 +193,18 @@ export const AnalyticsView: React.FC = () => {
                   <h4 className="font-semibold text-sm text-[#0a0a0a] capitalize">
                     {pr.exerciseName}
                   </h4>
-                  <span className="text-xs text-[#737373]">
+                  <span className="text-xs text-[#6f6f6f]">
                     {pr.metricType === 'max_weight' ? pr.recordValue + ' kg max load' : pr.recordValue + ' reps max'}
                   </span>
                 </div>
-                <span className="text-[11px] text-[#737373]">
+                <span className="text-[11px] text-[#6f6f6f]">
                   {pr.achievedAt.split('T')[0]}
                 </span>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-xs text-[#737373] text-center py-4">
+          <p className="text-xs text-[#6f6f6f] text-center py-4">
             Complete workouts with reps and weights to automatically unlock Personal Records.
           </p>
         )}
