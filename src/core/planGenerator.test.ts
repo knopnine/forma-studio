@@ -82,4 +82,61 @@ describe('planGenerator', () => {
     expect(updatedPlan.exercises[0].exercise.id).toBe(alternativeId);
     expect(updatedPlan.exercises[0].exercise.id).not.toBe(originalFirstExercise.id);
   });
+
+  it('strictly filters only beginner exercises when experienceLevel is beginner', () => {
+    const beginnerPlan = generateDailyPlan({
+      focus: 'full_body',
+      durationMinutes: 45,
+      energyLevel: 'moderate',
+      profile: mockProfile,
+      experienceLevel: 'beginner',
+    });
+
+    expect(beginnerPlan.exercises.length).toBeGreaterThanOrEqual(3);
+    beginnerPlan.exercises.forEach((pEx) => {
+      expect(pEx.exercise.difficulty).toBe('beginner');
+    });
+  });
+
+  it('strictly obeys customEquipment passed to generator over profile equipment', () => {
+    // Bodyweight only override
+    const bodyweightOnlyEquipment = {
+      ...DEFAULT_EQUIPMENT_CONFIG,
+      hasBodyweight: true,
+      hasDumbbells: false,
+      hasBarbell: false,
+      hasPullUpBar: false,
+      improvisedTools: [],
+    };
+
+    const plan = generateDailyPlan({
+      focus: 'push',
+      durationMinutes: 30,
+      energyLevel: 'moderate',
+      profile: mockProfile, // has dumbbells in profile
+      customEquipment: bodyweightOnlyEquipment, // but overridden here
+    });
+
+    plan.exercises.forEach((pEx) => {
+      expect(pEx.exercise.equipmentCategory).not.toBe('dumbbell');
+      expect(pEx.exercise.equipmentCategory).not.toBe('barbell');
+      expect(pEx.exercise.equipmentCategory).not.toBe('pull_up_bar');
+    });
+  });
+
+  it('prioritizes advanced and intermediate movements when experienceLevel is advanced', () => {
+    const advPlan = generateDailyPlan({
+      focus: 'pull',
+      durationMinutes: 45,
+      energyLevel: 'high',
+      profile: mockProfile,
+      experienceLevel: 'advanced',
+    });
+
+    expect(advPlan.exercises.length).toBeGreaterThanOrEqual(3);
+    const difficulties = advPlan.exercises.map((p) => p.exercise.difficulty);
+    // Should include intermediate or advanced movements
+    const hasIntermediateOrAdv = difficulties.some((d) => d === 'intermediate' || d === 'advanced');
+    expect(hasIntermediateOrAdv).toBe(true);
+  });
 });

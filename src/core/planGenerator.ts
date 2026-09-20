@@ -4,6 +4,7 @@ import { getRecommendedSetsAndReps } from './progressionRules';
 import type {
   EnergyLevel,
   EquipmentConfig,
+  ExperienceLevel,
   PlannedExercise,
   SessionDurationMinutes,
   TargetMuscleFocus,
@@ -52,17 +53,28 @@ export function generateDailyPlan(params: {
   energyLevel: EnergyLevel;
   profile: UserProfile;
   customEquipment?: EquipmentConfig;
+  experienceLevel?: ExperienceLevel;
 }): WorkoutPlan {
   const equipment = params.customEquipment || params.profile.equipment;
   const goal = params.profile.primaryGoal;
-  const level = params.profile.experienceLevel;
+  const level: ExperienceLevel = params.experienceLevel || params.profile.experienceLevel || 'intermediate';
 
   const mapping = FOCUS_TARGET_MAPPING[params.focus] || FOCUS_TARGET_MAPPING.full_body;
   const allExercises = ExerciseDataset.getAll();
 
   const compatiblePool = allExercises.filter((ex) => {
     if (!isExerciseCompatibleWithEquipment(ex, equipment)) return false;
-    if (level === 'beginner' && ex.difficulty === 'advanced') return false;
+
+    // Strict experience level filtering:
+    if (level === 'beginner') {
+      // Beginners strictly receive foundational movements (no intermediate or advanced)
+      return ex.difficulty === 'beginner';
+    }
+    if (level === 'intermediate') {
+      // Intermediate receives intermediate and foundational movements (no extreme advanced)
+      return ex.difficulty === 'intermediate' || ex.difficulty === 'beginner';
+    }
+    // Advanced has full access to all movements with priority weighting
     return true;
   });
 
@@ -72,7 +84,23 @@ export function generateDailyPlan(params: {
     return catMatch || tgtMatch;
   });
 
-  const finalPool = focusPool.length >= 6 ? focusPool : compatiblePool;
+  const rawPool = focusPool.length >= 4 ? focusPool : compatiblePool;
+
+  // Level-based tiered ordering with random shuffle per tier:
+  let finalPool: typeof rawPool;
+  if (level === 'advanced') {
+    const adv = rawPool.filter((e) => e.difficulty === 'advanced').sort(() => Math.random() - 0.5);
+    const intm = rawPool.filter((e) => e.difficulty === 'intermediate').sort(() => Math.random() - 0.5);
+    const beg = rawPool.filter((e) => e.difficulty === 'beginner').sort(() => Math.random() - 0.5);
+    finalPool = [...adv, ...intm, ...beg];
+  } else if (level === 'intermediate') {
+    const intm = rawPool.filter((e) => e.difficulty === 'intermediate').sort(() => Math.random() - 0.5);
+    const beg = rawPool.filter((e) => e.difficulty === 'beginner').sort(() => Math.random() - 0.5);
+    finalPool = [...intm, ...beg];
+  } else {
+    // Beginner: already strictly beginner
+    finalPool = [...rawPool].sort(() => Math.random() - 0.5);
+  }
 
   let exerciseCount = 4;
   if (params.durationMinutes === 15) exerciseCount = params.energyLevel === 'low' ? 3 : 4;
@@ -80,7 +108,7 @@ export function generateDailyPlan(params: {
   else if (params.durationMinutes === 45) exerciseCount = params.energyLevel === 'high' ? 7 : 6;
   else if (params.durationMinutes === 60) exerciseCount = params.energyLevel === 'high' ? 8 : 7;
 
-  const shuffled = [...finalPool].sort(() => Math.random() - 0.5);
+  const shuffled = finalPool;
 
   const selectedExercises: PlannedExercise[] = [];
   const usedTargets = new Set<string>();

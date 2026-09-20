@@ -305,3 +305,15 @@ export const Shield: React.FC<IconProps> = ({ size = 20, className = 'w-5 h-5 sh
     <path d="M 12 22 C 12 22 20 18 20 12 L 20 5 L 12 2 L 4 5 L 4 12 C 4 18 12 22 12 22 Z" />
   </svg>
 );
+
+export const ChevronDown: React.FC<IconProps> = ({ size = 20, className = 'w-5 h-5 shrink-0', ...props }) => (
+  <svg width={size} height={size} {...baseSvgProps} className={className} {...props}>
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+);
+
+export const ChevronUp: React.FC<IconProps> = ({ size = 20, className = 'w-5 h-5 shrink-0', ...props }) => (
+  <svg width={size} height={size} {...baseSvgProps} className={className} {...props}>
+    <polyline points="18 15 12 9 6 15" />
+  </svg>
+);

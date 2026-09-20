@@ -67,9 +67,24 @@ export interface Translations {
   energy_mod_desc: string;
   energy_low: string;
   energy_low_desc: string;
+  step_level: string;
+  level_beginner: string;
+  level_beginner_desc: string;
+  level_intermediate: string;
+  level_intermediate_desc: string;
+  level_advanced: string;
+  level_advanced_desc: string;
   step_duration: string;
   mins: string;
   step_focus: string;
+  step_gear_today: string;
+  gear_preset_bodyweight: string;
+  gear_preset_minimal: string;
+  gear_preset_saved: string;
+  gear_expand_all: string;
+  gear_collapse: string;
+  gear_save_default: string;
+  gear_active_count: string;
   btn_generate: string;
   plan_prescribed_movements: string;
   btn_reroll: string;
@@ -221,9 +236,24 @@ export const I18N_DICTIONARY: Record<Language, Translations> = {
     energy_mod_desc: 'Balanced volume, solid working sets',
     energy_low: 'Low (Recovery)',
     energy_low_desc: 'Reduced sets, joint-friendly tempo & flow',
-    step_duration: '2. Available Duration',
+    step_level: '2. Experience Level',
+    level_beginner: 'Beginner (Foundations)',
+    level_beginner_desc: 'Foundational bodyweight & light loads, zero complex skills',
+    level_intermediate: 'Intermediate (Progressive)',
+    level_intermediate_desc: 'Strict pull-ups, dips, unilateral work & moderate weights',
+    level_advanced: 'Advanced (Peak Skill)',
+    level_advanced_desc: 'Complex calisthenics levers, handstands, pistol squats & peak overload',
+    step_duration: '3. Available Duration',
     mins: 'Mins',
-    step_focus: '3. Target Muscle Group',
+    step_focus: '4. Target Muscle Group',
+    step_gear_today: '5. Available Equipment Today',
+    gear_preset_bodyweight: '100% Bodyweight Only',
+    gear_preset_minimal: 'Minimal Home (Dumbbells + Bar)',
+    gear_preset_saved: 'My Saved Gear',
+    gear_expand_all: 'More Equipment & Household Tools',
+    gear_collapse: 'Hide Additional Equipment',
+    gear_save_default: 'Save as my default gear setup',
+    gear_active_count: 'tools selected',
     btn_generate: 'Generate Workout Plan',
     plan_prescribed_movements: 'Prescribed Movements',
     btn_reroll: 'Reroll',
@@ -374,9 +404,24 @@ export const I18N_DICTIONARY: Record<Language, Translations> = {
     energy_mod_desc: 'Volume seimbang, set kerja optimal',
     energy_low: 'Rendah (Pemulihan)',
     energy_low_desc: 'Jumlah set lebih sedikit, ramah sendi & kelenturan',
-    step_duration: '2. Durasi Waktu',
+    step_level: '2. Tingkat Pengalaman',
+    level_beginner: 'Pemula (Dasar)',
+    level_beginner_desc: 'Gerakan dasar, aman untuk persendian tanpa skill rumit',
+    level_intermediate: 'Menengah (Progresif)',
+    level_intermediate_desc: 'Pull-up, dip, latihan satu sisi (unilateral) & beban sedang',
+    level_advanced: 'Mahir (Keahlian Puncak)',
+    level_advanced_desc: 'Skill kalistenik kompleks, handstand, pistol squat & beban maksimal',
+    step_duration: '3. Durasi Waktu',
     mins: 'Menit',
-    step_focus: '3. Sasaran Kelompok Otot',
+    step_focus: '4. Sasaran Kelompok Otot',
+    step_gear_today: '5. Peralatan Tersedia Hari Ini',
+    gear_preset_bodyweight: 'Hanya Berat Badan',
+    gear_preset_minimal: 'Rumah Minimalis (Dumbbell + Pull-Up)',
+    gear_preset_saved: 'Semua Alat Tersimpan',
+    gear_expand_all: 'Peralatan Tambahan & Alat Rumah',
+    gear_collapse: 'Sembunyikan Peralatan Tambahan',
+    gear_save_default: 'Simpan sebagai pengaturan alat utama saya',
+    gear_active_count: 'alat dipilih',
     btn_generate: 'Buat Rencana Latihan',
     plan_prescribed_movements: 'Daftar Gerakan yang Dianjurkan',
     btn_reroll: 'Acak Ulang',
