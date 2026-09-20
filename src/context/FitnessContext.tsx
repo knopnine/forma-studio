@@ -13,7 +13,7 @@ import type {
   WorkoutPlan,
 } from '../core/types';
 
-export type AppTab = 'landing' | 'home' | 'wizard' | 'splits' | 'library' | 'equipment' | 'analytics' | 'active_workout';
+export type AppTab = 'landing' | 'home' | 'wizard' | 'splits' | 'library' | 'equipment' | 'analytics' | 'active_workout' | 'guide';
 
 export interface RestTimerState {
   totalSeconds: number;
@@ -80,6 +80,7 @@ function getInitialTab(): AppTab {
   if (hash.startsWith('app/library') || hash === 'library') return 'library';
   if (hash.startsWith('app/equipment') || hash === 'equipment') return 'equipment';
   if (hash.startsWith('app/analytics') || hash === 'analytics') return 'analytics';
+  if (hash.startsWith('app/guide') || hash === 'guide' || hash === 'how-it-works') return 'guide';
   if (hash === 'landing' || hash === '') {
     // If running in Capacitor Android Native App or Standalone PWA, start directly in Studio
     const isNative = !!(window as any).Capacitor?.isNativePlatform?.();

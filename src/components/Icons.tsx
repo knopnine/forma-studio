@@ -291,3 +291,17 @@ export const Sliders: React.FC<IconProps> = ({ size = 20, className = 'w-5 h-5 s
     <line x1="17" y1="16" x2="23" y2="16" />
   </svg>
 );
+
+export const HelpCircle: React.FC<IconProps> = ({ size = 20, className = 'w-5 h-5 shrink-0', ...props }) => (
+  <svg width={size} height={size} {...baseSvgProps} className={className} {...props}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="M 9.09 9 A 3 3 0 0 1 14.86 10.3 C 14.86 12 12 12.5 12 14" />
+    <line x1="12" y1="17" x2="12.01" y2="17" />
+  </svg>
+);
+
+export const Shield: React.FC<IconProps> = ({ size = 20, className = 'w-5 h-5 shrink-0', ...props }) => (
+  <svg width={size} height={size} {...baseSvgProps} className={className} {...props}>
+    <path d="M 12 22 C 12 22 20 18 20 12 L 20 5 L 12 2 L 4 5 L 4 12 C 4 18 12 22 12 22 Z" />
+  </svg>
+);

@@ -9,6 +9,7 @@ import { EquipmentManager } from './components/EquipmentManager';
 import { AnalyticsView } from './components/AnalyticsView';
 import { ActiveWorkoutView } from './components/ActiveWorkoutView';
 import { LandingPage } from './components/LandingPage';
+import { SessionGuideView } from './components/SessionGuideView';
 import { RestTimerFloating } from './components/RestTimerFloating';
 import { ExerciseDetailModal } from './components/ExerciseDetailModal';
 
@@ -28,6 +29,7 @@ const AppContent: React.FC = () => {
         {currentTab === 'equipment' && <EquipmentManager />}
         {currentTab === 'analytics' && <AnalyticsView />}
         {currentTab === 'active_workout' && <ActiveWorkoutView />}
+        {currentTab === 'guide' && <SessionGuideView />}
       </main>
 
       <RestTimerFloating />

@@ -5,12 +5,13 @@ import {
   Calendar,
   Download,
   Upload,
+  HelpCircle,
 } from './Icons';
 import { useFitness } from '../context/FitnessContext';
 import { StorageService } from '../adapters/storageAdapter';
 
 export const AnalyticsView: React.FC = () => {
-  const { history, personalRecords } = useFitness();
+  const { history, personalRecords, setCurrentTab, profile } = useFitness();
 
   const totalVolumeKg = history.reduce((sum, log) => sum + log.totalVolumeKg, 0);
   const totalReps = history.reduce((sum, log) => sum + log.totalReps, 0);
@@ -76,8 +77,18 @@ export const AnalyticsView: React.FC = () => {
 
         <div className="flex items-center gap-2">
           <button
+            onClick={() => setCurrentTab('guide')}
+            className="btn-outline text-xs py-1.5 px-3 flex items-center gap-1.5 cursor-pointer"
+            title="How session & local storage works"
+          >
+            <HelpCircle className="w-4 h-4" />
+            <span className="hidden sm:inline">
+              {profile.language === 'id' ? 'Panduan Sesi' : 'Session Guide'}
+            </span>
+          </button>
+          <button
             onClick={handleExportData}
-            className="btn-outline text-xs py-1.5 px-3 flex items-center gap-1.5"
+            className="btn-outline text-xs py-1.5 px-3 flex items-center gap-1.5 cursor-pointer"
             title="Export JSON Backup"
           >
             <Download className="w-5 h-5" />
@@ -85,7 +96,7 @@ export const AnalyticsView: React.FC = () => {
           </button>
           <button
             onClick={handleImportData}
-            className="btn-secondary text-xs py-1.5 px-3 flex items-center gap-1.5"
+            className="btn-secondary text-xs py-1.5 px-3 flex items-center gap-1.5 cursor-pointer"
             title="Import JSON Backup"
           >
             <Upload className="w-5 h-5" />
@@ -208,6 +219,26 @@ export const AnalyticsView: React.FC = () => {
             Complete workouts with reps and weights to automatically unlock Personal Records.
           </p>
         )}
+      </div>
+
+      {/* Local Storage Architecture Note */}
+      <div className="p-4 rounded-[18px] bg-[#ffffff] border border-[#e5e5e5] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+        <div className="flex items-center gap-2.5">
+          <div className="w-7 h-7 rounded-[8px] bg-[#f5f5f5] text-[#0a0a0a] flex items-center justify-center shrink-0">
+            <HelpCircle className="w-4 h-4" />
+          </div>
+          <span className="text-[#6f6f6f]">
+            {profile.language === 'id'
+              ? 'Data riwayat dan rekor pribadi Anda tersimpan secara privat di browser ini tanpa memerlukan akun.'
+              : 'Your workout history and personal records are stored privately in this browser with zero account setup.'}
+          </span>
+        </div>
+        <button
+          onClick={() => setCurrentTab('guide')}
+          className="text-xs font-semibold text-[#0a0a0a] hover:underline shrink-0 cursor-pointer"
+        >
+          {profile.language === 'id' ? 'Pelajari Cara Kerja Sesi →' : 'How Sessions Work →'}
+        </button>
       </div>
     </div>
   );

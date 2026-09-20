@@ -10,6 +10,7 @@ import {
   Zap,
   Dumbbell,
   Globe,
+  HelpCircle,
 } from './Icons';
 import { useFitness, type AppTab } from '../context/FitnessContext';
 import { getTranslation } from '../core/i18n';
@@ -80,8 +81,22 @@ export const Navigation: React.FC = () => {
           </nav>
         )}
 
-        {/* Right: Language Toggle & Context Action Area */}
+        {/* Right: Guide Button, Language Toggle & Context Action Area */}
         <div className="flex items-center gap-2">
+          {/* Global Session Architecture Guide */}
+          <button
+            onClick={() => setCurrentTab('guide')}
+            className={'flex items-center gap-1.5 px-2.5 py-1 rounded-[18px] text-xs font-semibold transition-colors border cursor-pointer ' +
+              (currentTab === 'guide'
+                ? 'bg-[#0a0a0a] text-[#fafafa] border-[#0a0a0a]'
+                : 'bg-[#f5f5f5] hover:bg-[#e5e5e5] text-[#0a0a0a] border-[#e5e5e5]')}
+            title={t.nav_guide}
+            aria-label={t.nav_guide}
+          >
+            <HelpCircle className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">{t.nav_guide}</span>
+          </button>
+
           {/* Global Language Toggle */}
           <button
             onClick={toggleLanguage}

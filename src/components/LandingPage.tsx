@@ -74,9 +74,15 @@ export const LandingPage: React.FC = () => {
             <span className="text-xl md:text-2xl font-bold text-[#0a0a0a] block">1,324</span>
             <span className="text-[11px] font-medium text-[#6f6f6f] uppercase tracking-wider">Movements</span>
           </div>
-          <div className="text-center p-2 border-x border-[#e5e5e5]">
+          <div
+            onClick={() => setCurrentTab('guide')}
+            className="text-center p-2 border-x border-[#e5e5e5] cursor-pointer hover:bg-[#ffffff] rounded-[10px] transition-all group"
+            title="Learn how local session storage works"
+          >
             <span className="text-xl md:text-2xl font-bold text-[#0a0a0a] block">100%</span>
-            <span className="text-[11px] font-medium text-[#6f6f6f] uppercase tracking-wider">Local & Offline</span>
+            <span className="text-[11px] font-medium text-[#6f6f6f] uppercase tracking-wider group-hover:text-[#0a0a0a] transition-colors">
+              Local & Offline ↗
+            </span>
           </div>
           <div className="text-center p-2">
             <span className="text-xl md:text-2xl font-bold text-[#0a0a0a] block">$0</span>
@@ -253,24 +259,54 @@ export const LandingPage: React.FC = () => {
             </p>
           </div>
 
-          <button
-            onClick={() => setCurrentTab('home')}
-            className="btn-primary text-xs py-2.5 px-5 shadow-sm hover:scale-[1.02] transition-transform"
-          >
-            <span>{t.landing_cta_launch}</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto">
+            <button
+              onClick={() => setCurrentTab('guide')}
+              className="btn-outline text-xs py-2.5 px-4 text-center cursor-pointer"
+            >
+              <span>{t.nav_guide}</span>
+            </button>
+            <button
+              onClick={() => setCurrentTab('home')}
+              className="btn-primary text-xs py-2.5 px-5 shadow-sm hover:scale-[1.02] transition-transform text-center"
+            >
+              <span>{t.landing_cta_launch}</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </section>
 
       {/* Landing Footer */}
-      <footer className="text-center pt-8 border-t border-[#e5e5e5] text-xs text-[#6f6f6f] space-y-2">
+      <footer className="text-center pt-8 border-t border-[#e5e5e5] text-xs text-[#6f6f6f] space-y-3">
         <div className="flex items-center justify-center gap-2">
           <div className="w-5 h-5 rounded-[6px] bg-[#0a0a0a] text-[#fafafa] flex items-center justify-center">
             <Dumbbell className="w-3 h-3" />
           </div>
           <span className="font-semibold text-sm text-[#0a0a0a]">Forma</span>
           <span className="text-[11px] text-[#6f6f6f]">/ studio</span>
+        </div>
+        <div className="flex items-center justify-center gap-4 text-xs font-medium">
+          <button
+            onClick={() => setCurrentTab('guide')}
+            className="hover:text-[#0a0a0a] underline cursor-pointer"
+          >
+            {t.nav_guide}
+          </button>
+          <span>•</span>
+          <button
+            onClick={() => setCurrentTab('library')}
+            className="hover:text-[#0a0a0a] underline cursor-pointer"
+          >
+            {t.nav_library}
+          </button>
+          <span>•</span>
+          <button
+            onClick={() => setCurrentTab('equipment')}
+            className="hover:text-[#0a0a0a] underline cursor-pointer"
+          >
+            {t.nav_gear}
+          </button>
         </div>
         <p className="text-[11px]">
           {t.landing_footer_text}

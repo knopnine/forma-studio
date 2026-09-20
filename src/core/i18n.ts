@@ -10,6 +10,7 @@ export interface Translations {
   nav_quick_start: string;
   nav_resume_session: string;
   nav_tools: string;
+  nav_guide: string;
 
   landing_badge: string;
   landing_hero_title: string;
@@ -163,6 +164,7 @@ export const I18N_DICTIONARY: Record<Language, Translations> = {
     nav_quick_start: 'Quick Start',
     nav_resume_session: 'Resume Session',
     nav_tools: 'tools',
+    nav_guide: 'Session Guide',
 
     landing_badge: '100% Free, Private & Open-Source',
     landing_hero_title: 'Adaptive Home Strength, Engineered for Freedom.',
@@ -315,6 +317,7 @@ export const I18N_DICTIONARY: Record<Language, Translations> = {
     nav_quick_start: 'Mulai Cepat',
     nav_resume_session: 'Lanjutkan Sesi',
     nav_tools: 'alat',
+    nav_guide: 'Panduan Sesi',
 
     landing_badge: '100% Gratis, Privasi Aman & Open-Source',
     landing_hero_title: 'Kekuatan Tanpa Batas, Dirancang untuk Rumah.',
